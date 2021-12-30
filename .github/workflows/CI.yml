@@ -58,5 +58,6 @@ jobs:
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
             using DistributionFits
-            DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using DistributionFits); recursive=true)
+            DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using Statistics, Distributions, DistributionFits); recursive=true)
             doctest(DistributionFits)'
+            

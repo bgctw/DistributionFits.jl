@@ -21,4 +21,4 @@ Currently, support for the following distributios are implemented:
 upcoming:
 - Logitnormal
 
-See [Documentation](https://bgctw.github.io/DistributionFits.jl/stable)
+See [Documentation](https://bgctw.github.io/DistributionFits.jl/dev)
