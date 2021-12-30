@@ -10,6 +10,7 @@ to allow fitting a distribution to a given set of aggregate statistics.
 - to specified moments
 - to mean and upper quantile point
 - to mode and upper quantile point
+- to median and upper quantile point
 - to lower and upper quantiles, i.e confidence range
 
 This can also be used to approximate a different distribution by matching its moments
@@ -18,7 +19,8 @@ Currently, support for the following distributios are implemented:
 - Normal
 - Lognormal
 
-upcoming:
-- Logitnormal
+Partial support for:
+- Logitnormal (fit to quantiles, including median)
+  - fitting to mode is available in LogitNormals.jl, which depends on Optim
 
 See [Documentation](https://bgctw.github.io/DistributionFits.jl/dev)

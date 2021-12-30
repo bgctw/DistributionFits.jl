@@ -54,7 +54,7 @@ const continuous_distributions = [
     # "normalcanon",
     # "normalinversegaussian",
      "lognormal",    # LogNormal depends on Normal
-    # "logitnormal",    # LogitNormal depends on Normal
+     "logitnormal",    # LogitNormal depends on Normal
     # "pareto",
     # "rayleigh",
     # "semicircle",

@@ -2,6 +2,7 @@ module DistributionFits
 
 using Distributions
 using FillArrays, StaticArrays
+import StatsFuns: logit, logistic
 
 import StatsBase: fit
 # Moments also extends getindex, mean, kurtorsis ....

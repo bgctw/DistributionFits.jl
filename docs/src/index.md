@@ -35,12 +35,22 @@ d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
 # output
 (true, true)
 ```
+- to median and upper quantile point
+```@meta
+DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+```
+```jldoctest; output = false
+d = fit(LogitNormal, 0.3, @qp_u(0.8), Val(:median))
+(median(d), quantile(d, 0.95)) .≈ (0.3, 0.8)
+# output
+(true, true)
+```
 - to two quantiles, i.e confidence range
 ```@meta
 DocTestSetup = :(using Statistics,Distributions,DistributionFits)
 ```
 ```jldoctest; output = false
-d = fit(LogNormal, @qp_ll(1.0), @qp_uu(8))
+d = fit(Normal, @qp_ll(1.0), @qp_uu(8))
 (quantile(d, 0.025), quantile(d, 0.975)) .≈ (1.0, 8.0)
 # output
 (true, true)

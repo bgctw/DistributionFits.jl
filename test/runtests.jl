@@ -6,6 +6,7 @@ const tests = [
     "fitstats",
     "normal",
     "lognormal",
+    "logitnormal",
 ]
 
 

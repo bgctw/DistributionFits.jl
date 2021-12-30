@@ -21,5 +21,3 @@ fit_mean_quantile(D::Type{Normal}, mean::Real, qp::QuantilePoint) =
 
 fit_mode_quantile(D::Type{Normal}, mode::Real, qp::QuantilePoint) = 
     fit(D, QuantilePoint(mode, 0.5), qp)
-
-println("loading normal.jl")    
