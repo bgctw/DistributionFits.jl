@@ -9,6 +9,9 @@ allows fitting a distribution to a given
 set of aggregate statistics.
 
 - to specified moments
+```@meta
+DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+```
 ```jldoctest; output = false
 d = fit(LogNormal, Moments(3.0,4.0))
 (mean(d), var(d)) .≈ (3.0, 4.0)
@@ -23,6 +26,9 @@ d = fit(LogNormal, 3, @qp_uu(8))
 (true, true)
 ```
 - to mode and upper quantile point
+```@meta
+DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+```
 ```jldoctest; output = false
 d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
 (mode(d), quantile(d, 0.975)) .≈ (3.0, 8.0)
@@ -30,6 +36,9 @@ d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
 (true, true)
 ```
 - to two quantiles, i.e confidence range
+```@meta
+DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+```
 ```jldoctest; output = false
 d = fit(LogNormal, @qp_ll(1.0), @qp_uu(8))
 (quantile(d, 0.025), quantile(d, 0.975)) .≈ (1.0, 8.0)
@@ -37,6 +46,9 @@ d = fit(LogNormal, @qp_ll(1.0), @qp_uu(8))
 (true, true)
 ```
 - approximate a different distribution by matching moments
+```@meta
+DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+```
 ```jldoctest; output = false
 dn = Normal(3,2)
 d = fit(LogNormal, moments(dn))
