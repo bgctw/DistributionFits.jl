@@ -107,7 +107,9 @@ d = fit(LogNormal, moments(Normal(3,1.2)));
 (true, true)
 ```
 ```julia
-plot(d); lines(!Normal(3,1.2))
+# using StatsPlots
+plot(d, label = "lognormal", ylab="probability density")
+plot!(Normal(3,1.2), label = "normal")
 ```
 """
 fit(::Type{D}, m::AbstractMoments) where {D<:Distribution} = 

@@ -4,6 +4,7 @@ using Distributions
 using FillArrays, StaticArrays
 
 import StatsBase: fit
+# Moments also extends getindex, mean, kurtorsis ....
 
 export 
   # fitting distributions

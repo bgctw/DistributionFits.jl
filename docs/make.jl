@@ -1,7 +1,7 @@
-using DistributionFits
+using Distributions, DistributionFits
 using Documenter
 
-DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using DistributionFits); recursive=true)
+DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using Distributions,DistributionFits); recursive=true)
 
 makedocs(;
     modules=[DistributionFits],
@@ -15,7 +15,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Details" => "autodocs.md",
+        "Details" => "z_autodocs.md",
     ],
 )
 
