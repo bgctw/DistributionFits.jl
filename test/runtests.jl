@@ -1,6 +1,23 @@
-using DistributionFits
+using Distributions, DistributionFits
 using Test
+import Random
 
-@testset "DistributionFits.jl" begin
-    # Write your tests here.
+const tests = [
+    "fitstats",
+    "normal",
+    "lognormal",
+]
+
+
+for t in tests
+    @testset "Test $t" begin
+        Random.seed!(345679)
+        include("$t.jl")
+    end
 end
+
+# print method ambiguities
+println("Potentially stale exports: ")
+display(Test.detect_ambiguities(DistributionFits))
+println()
+
