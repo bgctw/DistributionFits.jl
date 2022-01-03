@@ -1,4 +1,4 @@
-using Distributions, DistributionFits
+using DistributionFits
 using Test
 import Random
 

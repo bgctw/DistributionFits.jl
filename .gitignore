@@ -4,3 +4,10 @@
 /Manifest.toml
 /docs/build/
 docs/Manifest.toml
+
+/tmp/
+/jmd/*.ipynb
+/jmd/jl_*/
+/jmd/*.md
+/jmd/figures/
+

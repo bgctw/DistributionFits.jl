@@ -1,0 +1,77 @@
+---
+title : Specify a logitnormal distribution by mode
+author : Thomas Wutzler
+---
+
+# Specify a logitnormal distribution by mode
+
+The logitnormal distribution is bimodal for larger values of spread parameter $\sigma$.
+The goal is to find the distribution by location of the mode, $m$, and the constraints
+
+- having only a single mode
+- maximum possible $\sigma$.
+
+The mode is located at the transcendental equation (Frederic and Lad 2008), which
+indicates that all possible $\mu$, $\sigma$ combinations reside on a line with 
+slope $2 \sigma^2$ passing the logit function at $m$.
+
+$$
+logit(x) = \sigma^2(2x − 1) + \mu
+$$
+
+The solution is the steepest line that does not cross the logit curve. This line
+is tangent to the logit curve at the some yet unknown point $x_t$, in (0, 0.5) for $m > 0.5$.
+
+```julia; echo = false
+using StatsPlots, StatsFuns, Distributions, LogitNormals
+x = range(0.0,1.0,91)[2:90]	# plotting grid
+logitx = logit.(x)
+m = 0.9
+d = fit_mode_flat(LogitNormal, m)
+plot(x, logitx, label = "logit(x)", legend = :topleft)
+flinex = x -> d.σ^2*(2*x-1)+d.μ
+flinex.([0,1])
+plot!([0,1],flinex.([0,1]), label = "σ²(2x-1)+μ")
+vline!([m], color=:lightgray, label = nothing)
+```
+
+Hence we have the following constraints, uniquely determining $x_t$, $\sigma$, and $\mu$.
+
+- Crossing logit at $m$:  
+    $logit(m) = \sigma^2(2m − 1) + \mu$
+- Touching logit at $x_t$:  
+    $logit(x_t) = \sigma^2(2x_t − 1) + \mu$
+- Same slope at $x_t$:  
+    $logit'(x_t) = 2 \sigma^2$
+
+The same slope constraint translates to a relation between $x_t$ and $m$.
+
+$$
+\begin{aligned}
+{1 \over x_t} + {1 \over 1-x_t} &= \frac{logit(m) - logit(x)}{m-x_t} 
+\\
+{m-x_t \over x_t} + {m-x_t \over 1-x_t} &= logit(m) - logit(x_t)
+\\
+{m \over x_t} + {m-1 \over 1-x_t} &= logit(m) - logit(x_t) 
+\end{aligned}
+$$
+
+Analytically solving for $x_t$ is complicated by $x_t$ occuring outside and
+inside the logit function. However, we can use
+the constraint to determine $x_t$ by numerical optimization, minimizing the
+difference between the right and the left hand side.
+
+- $\sigma^2 = {1 \over 2} \left( {1 \over x_t} + {1 \over 1-x_t} \right)$
+- $\mu = logit(m) - \sigma^2(2m − 1)$
+This derivation assumed $m > 0.5$. 
+
+For $m = 0.5$, $\mu = 0$ and $\sigma = \sqrt{2}$.
+
+For $m < 0.5$, one can solve the case $m_r = 1 - m$ and report negated $\mu$ because $(1-X) \sim Logitnormal(-\mu, \sigma^2)$.
+The following figute displays the density of the most flat, 
+i.e. widest distribution with mode at 0.9.
+
+```julia; echo = false
+plot(d, legend=:topleft, label = "logitnormal($(round(d.μ,sigdigits=3)),$(round(d.σ, sigdigits=3)))", ylab="probability density")
+vline!([0.9], color=:gray, label = nothing)
+```
