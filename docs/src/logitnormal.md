@@ -51,11 +51,15 @@ p = plot(
 for peakedness in peakedness_vec
     d = fit_mode_flat(LogitNormal, m; peakedness)
     plot!(p, d, label = peakedness)
-end
+    savefig("fig/logitnormal_peakedness.svg")
 ```
+![](fig/logitnormal_peakedness.svg)
+<!-- 
+does not hide and does not output the plot, need to resort to savefig
 ```@example plot_peakedness
 p # hide
-```
+``` 
+-->
 
 ```@example plot_peakedness
 import Random # hide
