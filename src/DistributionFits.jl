@@ -20,6 +20,10 @@ export
   @qp, @qp_ll, @qp_l, @qp_m, @qp_u, @qp_uu, 
   @qs_cf90, @qs_cf95
 
+# LogNormal
+export Σstar, σstar
+
+# LogitNormal  
 export fit_mode_flat
 
 # fitting distributions to stats

@@ -1,7 +1,3 @@
-# Deprecated: Moved to DistributionFits.jl
-
-functionality moved to package [DistributionFits.jl](https://github.com/bgctw/DistributionFits.jl)
-
 # DistributionFits
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://bgctw.github.io/DistributionFits.jl/stable)

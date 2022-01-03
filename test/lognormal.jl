@@ -51,3 +51,14 @@ end;
     @test dfit ≈ d
 end;
 
+@testset "Σstar" begin
+    ss = Σstar(4.5)
+    @test ss() == 4.5
+end;
+@testset "fit to mean and Σstar" begin
+    d = LogNormal(1, log(1.2))
+    dfit = fit(LogNormal, mean(d), Σstar(1.2))
+    @test d == dfit
+end;
+
+

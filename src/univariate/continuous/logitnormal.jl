@@ -96,7 +96,7 @@ by peakedness.
 
 # Examples
 ```jldoctest; output=false
-m = 0.8
+m = 0.6
 d = fit_mode_flat(LogitNormal, m; peakedness = 1.5)
 mode(d) ≈ m
 # output

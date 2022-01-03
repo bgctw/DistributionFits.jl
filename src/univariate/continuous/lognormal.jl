@@ -47,3 +47,70 @@ function fit_mode_quantile(::Type{LogNormal}, mode::Real, qp::QuantilePoint)
     LogNormal(mu, sigma)
 end
 
+
+"""
+    Σstar
+    
+Represent the multiplicative standard deviation of a LogNormal distribution.
+
+Supports dispatch of `fit`.
+Invoking the type as a function returns its single value.
+
+# Examples
+```jldoctest; output = false, setup = :(using LogNormals)
+a = Σstar(4.2)
+a() == 4.2
+# output
+true
+```
+"""
+struct Σstar 
+    σstar 
+end
+(a::Σstar)() = a.σstar
+
+"""
+    σstar(d)
+    
+Get the multiplicative standard deviation of LogNormal distribution d.
+
+# Arguments
+- `d`: The type of distribution to fit
+
+# Examples
+```jldoctest fm1; output = false, setup = :(using Distributions,LogNormals)
+d = LogNormal(2,log(1.2))
+σstar(d) == 1.2
+# output
+true
+```
+"""
+σstar(d::LogNormal) = exp(params(d)[2])
+
+"""
+    fit(D, mean, σstar)
+    
+Fit a statistical distribution of type `D` to mean and multiplicative 
+standard deviation.
+
+# Arguments
+- `D`: The type of distribution to fit
+- `mean`: The moments of the distribution
+- `σstar::Σstar`: The multiplicative standard deviation
+
+See also [`σstar`](@ref), [`Σstar`](@ref). 
+
+# Examples
+```jldoctest fm1; output = false, setup = :(using Distributions,LogNormals)
+d = fit(LogNormal, 2, Σstar(1.1));
+(mean(d), σstar(d)) == (2, 1.1)
+# output
+true
+```
+"""
+function fit(::Type{LogNormal}, mean, σstar::Σstar)
+    σ = log(σstar())
+    μ = log(mean) - σ*σ/2
+    LogNormal(μ, σ)
+end
+
