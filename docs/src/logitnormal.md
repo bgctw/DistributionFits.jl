@@ -57,12 +57,13 @@ end
 p # hide
 ```
 
-```@example test_hide
+```@example plot_peakedness
 import Random # hide
 Random.seed!(1) # hide
 A = rand(3, 3)
 b = [1, 2, 3]
 A \ b
+p
 ```
 
 
