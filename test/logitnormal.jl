@@ -77,7 +77,7 @@ end;
 end
 
 function is_logit_slope_monotone(d, upper=0.5, lower=0.0, decreasing = false) 
-  x = range(lower,upper,41)[2:40]	# plotting grid
+  x = range(lower,upper;length=41)[2:40]	# plotting grid
   dx = pdf.(d, x)	#density function
   if decreasing
     all(diff(dx) .<= 0)
