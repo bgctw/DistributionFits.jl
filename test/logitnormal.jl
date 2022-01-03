@@ -74,6 +74,10 @@ end;
     @test mode(g) ≈ 0.68 
     @test quantile(g, 0.95) ≈ 0.9
     #plot(g)
+    # call with differt subtype of Real, here Rational
+    g = fit(LogitNormal, 2//3, @qp_u(0.9), Val(:mode))
+    @test mode(g) ≈ 2//3 
+    @test quantile(g, 0.95) ≈ 0.9
 end
 
 function is_logit_slope_monotone(d, upper=0.5, lower=0.0, decreasing = false) 
