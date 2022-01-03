@@ -52,9 +52,12 @@ for peakedness in peakedness_vec
     d = fit_mode_flat(LogitNormal, m; peakedness)
     plot!(p, d, label = peakedness)
 end
-savefig(p, "logitnormal_peakedness.svg")
+#savefig(p, "logitnormal_peakedness.svg")
+#![](logitnormal_peakedness.svg)
 ```
-![](logitnormal_peakedness.svg)
+```@example plot_peakedness
+p # hide
+```
 
 
 
