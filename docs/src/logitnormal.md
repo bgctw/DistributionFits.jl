@@ -40,10 +40,8 @@ The found maximum spread parameter, σ, is devided by the peakedness
 argument to specify distributions given the mode that are more
 peaked.
 
-```@meta
-DocTestSetup = :(using Statistics,DistributionFits)
-```
-```julia; echo=false
+```@setup plot_peakedness
+using DistributionFits
 using StatsPlots
 peakedness_vec = 1:0.5:2
 m = 0.6
@@ -54,7 +52,9 @@ for peakedness in peakedness_vec
     d = fit_mode_flat(LogitNormal, m; peakedness)
     plot!(p, d, label = peakedness)
 end
-p
+```
+```@example plot_peakedness
+p # hide
 ```
 
 

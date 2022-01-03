@@ -88,7 +88,7 @@ end
 """
     fit_mode_flat(::Type{LogitNormal}, mode::T; peakedness = 1.0) 
 
-Find the most-spread logitnormal distribution that has a single mode at given location.
+Find the maximum-spread logitnormal distribution that has a single mode at given location.
 
 More peaked distributions with given single mode can be optained by increasing
 argument peakedness. They will have a spread by originally inferred σ² devidied 
