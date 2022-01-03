@@ -1,6 +1,10 @@
 using Distributions, DistributionFits
 using Documenter
 
+# use plot on headleass server: 
+# https://juliadocs.github.io/Documenter.jl/stable/man/syntax/#@example-block
+ENV["GKSwstype"] = "100"
+
 DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using DistributionFits); recursive=true)
 
 makedocs(;

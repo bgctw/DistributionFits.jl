@@ -42,7 +42,7 @@ peaked.
 
 ```@setup plot_peakedness
 using DistributionFits
-using StatsPlots
+using StatsPlots # do not forget to add to docs environment
 peakedness_vec = 1:0.5:2
 m = 0.6
 p = plot(
