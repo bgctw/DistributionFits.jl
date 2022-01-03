@@ -57,7 +57,7 @@ Supports dispatch of `fit`.
 Invoking the type as a function returns its single value.
 
 # Examples
-```jldoctest; output = false, setup = :(using LogNormals)
+```jldoctest; output = false, setup = :(using DistributionFits)
 a = Σstar(4.2)
 a() == 4.2
 # output
@@ -78,7 +78,7 @@ Get the multiplicative standard deviation of LogNormal distribution d.
 - `d`: The type of distribution to fit
 
 # Examples
-```jldoctest fm1; output = false, setup = :(using Distributions,LogNormals)
+```jldoctest fm1; output = false, setup = :(using DistributionFits)
 d = LogNormal(2,log(1.2))
 σstar(d) == 1.2
 # output
@@ -101,7 +101,7 @@ standard deviation.
 See also [`σstar`](@ref), [`Σstar`](@ref). 
 
 # Examples
-```jldoctest fm1; output = false, setup = :(using Distributions,LogNormals)
+```jldoctest fm1; output = false, setup = :(using DistributionFits)
 d = fit(LogNormal, 2, Σstar(1.1));
 (mean(d), σstar(d)) == (2, 1.1)
 # output
