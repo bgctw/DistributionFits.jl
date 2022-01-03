@@ -59,6 +59,7 @@ end;
     d = LogNormal(1, log(1.2))
     dfit = fit(LogNormal, mean(d), Σstar(1.2))
     @test d == dfit
+    @test σstar(d) ≈ 1.2
 end;
 
 
