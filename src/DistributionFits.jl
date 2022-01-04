@@ -21,7 +21,7 @@ export
   @qs_cf90, @qs_cf95
 
 # LogNormal
-export Σstar, σstar
+export AbstractΣstar, Σstar, σstar
 
 # LogitNormal  
 export fit_mode_flat

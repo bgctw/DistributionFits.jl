@@ -1,5 +1,6 @@
 using Distributions, DistributionFits
 using Documenter
+using Plots, StatsPlots
 
 # use plot on headleass server: 
 # https://juliadocs.github.io/Documenter.jl/stable/man/syntax/#@example-block

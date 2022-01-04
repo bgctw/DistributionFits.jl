@@ -21,7 +21,7 @@ d = LogNormal(log(2), log(1.2))
 true
 ```
 
-Alternatively the distribution can be specified by its mean and ``\sigma^*`` using type [`Σstar`](@ref)
+Alternatively the distribution can be specified by its mean and ``\sigma^*`` using type [`AbstractΣstar`](@ref)
 
 ```jldoctest; output = false, setup = :(using DistributionFits)
 d = fit(LogNormal, 2, Σstar(1.2))
@@ -41,5 +41,5 @@ fit(::Type{LogNormal}, ::Any, ::Σstar)
 ```
 
 ```@docs
-Σstar
+AbstractΣstar
 ```
