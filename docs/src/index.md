@@ -10,7 +10,7 @@ set of aggregate statistics.
 
 - to specified moments
 ```@meta
-DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits)
 ```
 ```jldoctest; output = false
 d = fit(LogNormal, Moments(3.0,4.0))
@@ -27,7 +27,7 @@ d = fit(LogNormal, 3, @qp_uu(8))
 ```
 - to mode and upper quantile point
 ```@meta
-DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits)
 ```
 ```jldoctest; output = false
 d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
@@ -37,7 +37,7 @@ d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
 ```
 - to median and upper quantile point
 ```@meta
-DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits)
 ```
 ```jldoctest; output = false
 d = fit(LogitNormal, 0.3, @qp_u(0.8), Val(:median))
@@ -47,7 +47,7 @@ d = fit(LogitNormal, 0.3, @qp_u(0.8), Val(:median))
 ```
 - to two quantiles, i.e confidence range
 ```@meta
-DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits)
 ```
 ```jldoctest; output = false
 d = fit(Normal, @qp_ll(1.0), @qp_uu(8))
@@ -57,7 +57,7 @@ d = fit(Normal, @qp_ll(1.0), @qp_uu(8))
 ```
 - approximate a different distribution by matching moments
 ```@meta
-DocTestSetup = :(using Statistics,Distributions,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits)
 ```
 ```jldoctest; output = false
 dn = Normal(3,2)
