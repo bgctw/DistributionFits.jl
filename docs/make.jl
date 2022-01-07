@@ -20,6 +20,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Dependencies" => "set_optimize.md",
         "LogNormal" => "lognormal.md",
         "LogitNormal" => "logitnormal.md",
         #"Details" => "z_autodocs.md",

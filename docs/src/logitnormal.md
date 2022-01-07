@@ -11,7 +11,7 @@ This package estimates those by numerically integrating the
 distribution.
 
 ```@meta
-DocTestSetup = :(using Statistics,DistributionFits)
+DocTestSetup = :(using Statistics,DistributionFits,Optim)
 ```
 ```jldoctest; output = false
 d = fit(LogitNormal, 0.8, @qp_u(0.9), Val(:mode))
@@ -41,7 +41,7 @@ argument to specify distributions given the mode that are more
 peaked.
 
 ```@setup plot_peakedness
-using DistributionFits
+using DistributionFits,Optim
 using StatsPlots # do not forget to add to docs environment
 peakedness_vec = 1:0.5:2
 m = 0.6

@@ -1,4 +1,7 @@
 using DistributionFits
+using Optim: optimize
+#DistributionFits.set_optimize(optimize) 
+
 using Test
 import Random
 

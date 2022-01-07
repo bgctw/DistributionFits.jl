@@ -7,7 +7,7 @@ function mode(d::LogitNormal)
     # here, report the left mode
     interval = μ <= 0.0 ? (0.0,logistic(μ)) : (logistic(μ),1.0)
     resOpt = optimize(x -> -pdf(d, x), interval[1], interval[2])
-    Optim.minimizer(resOpt)
+    resOpt.minimizer
 end
 
 function var(d::LogitNormal; mean=missing, kwargs...) 
@@ -59,8 +59,8 @@ function matchModeUpper(
         (muTry[max(1,iMin-1)], muTry[min(nTry,iMin+1)]) :
         (muTry[max(1,iMin+1)], muTry[min(nTry,max(1,iMin-1))])
     resOpt = optimize(oF, interval...)
-    Optim.converged(resOpt) || error("could not find minimum")
-    μ = Optim.minimizer(resOpt)
+    resOpt.converged || error("could not find minimum")
+    μ = resOpt.minimizer
     σ = sqrt((logitMode - μ)/(2*mode - 1))
     LogitNormal{T}(μ,σ)
 end
@@ -108,7 +108,7 @@ function fit_mode_flat(::Type{LogitNormal}, mode::T, ::Val{nTry} = Val(40); peak
     is_right = mode > 0.5
     mode_r = is_right ? mode : 1.0 - mode
     res_opt = optimize(x -> of_mode_flat(x, mode_r, logit(mode_r)), 0.0, 0.5)
-    Optim.converged(res_opt) || error("could not find minimum")
+    res_opt.converged || error("could not find minimum")
     xt = res_opt.minimizer
     σ2 = (1/xt + 1/(1-xt))/2/peakedness^2
     μr = logit(mode_r) - σ2*(2.0*mode_r - 1.0)
