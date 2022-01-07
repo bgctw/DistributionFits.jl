@@ -19,6 +19,11 @@ to
 
 This can also be used to approximate a different distribution by matching its moments
 
+User needs to [explicitly use Optim.jl](https://bgctw.github.io/DistributionFits.jl/stable/set_optimize/) for DitributionFits.jl to work properly:
+```julia
+use DistributionFits, Optim
+```
+
 Currently, support for the following distributios are implemented:
 - Normal
 - Lognormal
