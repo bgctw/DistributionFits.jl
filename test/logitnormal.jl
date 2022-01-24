@@ -42,9 +42,11 @@ end
     d = fit(LogitNormal, qpu, qpl) # sort
     @test quantile.(d, [qpl.p, qpu.p]) ≈ [qpl.q, qpu.q]
 end;
+
 @testset "fit to quantilepoint and mean" begin
     # not implemented
 end;
+
 @testset "fit to quantilepoint and mode" begin
     # see LogitNormals.jl
     # d = LogitNormal(1,1)
@@ -59,6 +61,7 @@ end;
     # dfit = fit_mode_quantile(LogitNormal, mode(d), qp)
     # @test mode(dfit) ≈ mode(d) && quantile(dfit, qp.p) ≈ qp.q
 end;
+
 @testset "fit to quantilepoint and median" begin
     d = LogitNormal(1,1)
     qp = @qp(quantile(d,0.95),0.95)

@@ -3,14 +3,12 @@ using Test
 using Random: Random
 
 # @testset "optimize error" begin
-#     @test_throws UndefVarError DistributionFits.optimize
+#     @test_throws Exception DistributionFits.optimize(x -> x*x, DistributionFits.optimizer, -1, 1)
 # end
 using Optim: Optim, optimize
 @testset "optimize set in __init__ after using Optim" begin
     # set in __init__
-    @test DistributionFits.optimize == Optim.optimize
-    set_optimize(Optim.optimize)
-    @test DistributionFits.optimize == Optim.optimize
+    @test DistributionFits.optimizer isa DistributionFits.OptimOptimizer
 end
 
 const tests = [
@@ -19,6 +17,7 @@ const tests = [
     "lognormal",
     "logitnormal",
 ]
+#tests = ["logitnormal"]
 
 
 for t in tests
