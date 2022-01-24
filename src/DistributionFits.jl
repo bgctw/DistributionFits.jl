@@ -27,37 +27,14 @@ export AbstractΣstar, Σstar, σstar
 export fit_mode_flat
 
 # dependency inversion: need to define DistributionFits.optimize by user
-export set_optimize
-"""
-    set_optimize(f_optimize) 
+export AbstractDistributionFitOptimizer, optimize
 
-`DistributionFits.jl` uses the following interface to opimize an univariate 
-function `f` on bounded interval `[lower,upper]`:
 
-    optimize(f, lower, upper)
+include("optimizer.jl")
 
-Returning an object with fields `minimizer` and `converged`.
-
-`set_optimize` tells the concrete implementation passed by `f_optimize` 
-to `DistributionFits.jl`.
-
-If package [Optim](https://julianlsolvers.github.io/Optim.jl/stable/) is in scope, then its
-[optimize](https://julianlsolvers.github.io/Optim.jl/stable/#user/minimization/#minimizing-a-univariate-function-on-a-bounded-interval) 
-function is set automatically. 
-
-Hence, the module using DistribuitonFits.jl has to either
-
-- explicitly tell `using Optim`, or
-- call `set_optimize` with the concrete implementation of the interface
-
-If the optimizer has not been set yet, then several functions in `Distribution.jl` 
-fail with the error: `UndefVarError: optimize not defined`.
-"""
-set_optimize(f_optimize) = (global optimize = f_optimize)
 function __init__()
-  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" optimize = Optim.optimize
+  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("requires_optim.jl")
 end
-
 
 # fitting distributions to stats
 include("fitstats.jl")

@@ -17,7 +17,7 @@ to
   - to median and upper quantile point
   - to lower and upper quantiles, i.e confidence range
 
-This can also be used to approximate a different distribution by matching its moments
+This can also be used to approximate one distribution via a different distribution by matching its moments.
 
 User needs to [explicitly use Optim.jl](https://bgctw.github.io/DistributionFits.jl/stable/set_optimize/) for DitributionFits.jl to work properly:
 ```julia
