@@ -2,9 +2,9 @@ using DistributionFits
 using Test
 using Random: Random
 
-# @testset "optimize error" begin
-#     @test_throws Exception DistributionFits.optimize(x -> x*x, DistributionFits.optimizer, -1, 1)
-# end
+@testset "optimize error" begin
+    @test_throws Exception DistributionFits.optimize(x -> x*x, DistributionFits.optimizer, -1, 1)
+end
 using Optim: Optim, optimize
 @testset "optimize set in __init__ after using Optim" begin
     # set in __init__
