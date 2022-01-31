@@ -24,7 +24,7 @@ export
 export AbstractΣstar, Σstar, σstar
 
 # LogitNormal  
-export fit_mode_flat
+export fit_mode_flat, shifloNormal
 
 # dependency inversion: need to define DistributionFits.optimize by user
 export AbstractDistributionFitOptimizer, optimize

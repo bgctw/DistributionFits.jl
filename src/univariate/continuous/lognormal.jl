@@ -115,3 +115,5 @@ function fit(::Type{LogNormal}, mean, σstar::AbstractΣstar)
     LogNormal(μ, σ)
 end
 
+
+
