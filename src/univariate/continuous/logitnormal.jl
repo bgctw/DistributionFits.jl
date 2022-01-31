@@ -127,6 +127,19 @@ function of_mode_flat(x, m, logitm = logit(m))
   d*d
 end
 
+"""
+    shifloNormal(lower,upper)
+
+Get a Shifted Flat LogitNormal distribution that is most spread
+with an extent between lower and upper. 
+This is a more smooth alternative to the bounded uniform distribution.
+"""
+function shifloNormal(lower,upper)
+    lower,upper = promote(lower,upper/1)
+    dln = LogitNormal{typeof(lower)}(0.0, sqrt(2))
+    LocationScale(lower, (upper -lower), dln)
+end
+
 
 
   

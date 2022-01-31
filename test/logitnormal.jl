@@ -111,3 +111,13 @@ end
     #plot(d1)
 end
 
+@testset "shifloNormal" begin
+    d = shifloNormal(1,3)
+    @test isapprox(mode(d), 2.0, atol=0.001)
+    @test minimum(d) == 1.0
+    @test maximum(d) == 3.0
+    @test scale(d) == 3-1
+    @test location(d) == 1.0
+    #plot(d)
+end;
+

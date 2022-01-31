@@ -59,5 +59,13 @@ end
 p # hide
 ```
 
+A shifted and scaled version of this distribution can be
+used as a moother alternative to the Bounded uniform distribution.
+
+```@docs
+shifloNormal
+```
+
+
 
 
