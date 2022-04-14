@@ -62,4 +62,8 @@ end;
     @test σstar(d) ≈ 1.2
 end;
 
+@testset "fit_mean_relerror" begin
+    d = fit_mean_relerror(LogNormal, 10.0, 0.03);
+    @test all((mean(d), std(d)/mean(d)) .≈ (10.0, 0.03))
+end;
 

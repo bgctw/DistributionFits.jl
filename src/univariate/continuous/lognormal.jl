@@ -115,5 +115,30 @@ function fit(::Type{LogNormal}, mean, σstar::AbstractΣstar)
     LogNormal(μ, σ)
 end
 
+"""
+    fit_mean_relerror(D, mean, relerror)
+    
+Fit a Lognormal distribution of type `D` to mean and relative error.
+
+# Arguments
+- `D`: The type of distribution to fit
+- `mean`: The first moment of the distribution
+- `relerror`: The relative error, i.e. the coefficient of variation
+
+# Examples
+```jldoctest fm1; output = false, setup = :(using DistributionFits)
+d = fit_mean_relerror(LogNormal, 10.0, 0.03);
+(mean(d), std(d)/mean(d)) .≈ (10.0, 0.03)
+# output
+true, true
+```
+"""
+function fit_mean_relerror(::Type{LogNormal}, mean, relerror)
+    # e.g. Limpert 2001, Wutzler 2020
+    w = 1 + abs2(relerror)
+    μ = log(mean/sqrt(w))
+    σ = sqrt(log(w))
+    LogNormal(μ, σ)
+end
 
 
