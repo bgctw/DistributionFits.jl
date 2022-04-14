@@ -13,3 +13,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ssh: ${{ secrets.DOCUMENTER_KEY }}
+          # https://github.com/JuliaRegistries/TagBot#release-branch-management
+          branches: true 
