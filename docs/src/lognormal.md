@@ -43,3 +43,8 @@ fit(::Type{LogNormal}, ::Any, ::Σstar)
 ```@docs
 AbstractΣstar
 ```
+
+```@docs
+fit_mean_relerror
+```
+

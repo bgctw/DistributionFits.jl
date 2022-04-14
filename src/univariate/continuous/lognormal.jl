@@ -118,7 +118,7 @@ end
 """
     fit_mean_relerror(D, mean, relerror)
     
-Fit a Lognormal distribution of type `D` to mean and relative error.
+Fit a distribution of type `D` to mean and relative error.
 
 # Arguments
 - `D`: The type of distribution to fit
