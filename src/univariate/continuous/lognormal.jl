@@ -130,7 +130,7 @@ Fit a Lognormal distribution of type `D` to mean and relative error.
 d = fit_mean_relerror(LogNormal, 10.0, 0.03);
 (mean(d), std(d)/mean(d)) .≈ (10.0, 0.03)
 # output
-true, true
+(true, true)
 ```
 """
 function fit_mean_relerror(::Type{LogNormal}, mean, relerror)
