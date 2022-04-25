@@ -29,7 +29,7 @@ const continuous_distributions = [
     # "chi",
     # "cosine",
     # "epanechnikov",
-    # "exponential",
+     "exponential",
     # "fdist",
     # "frechet",
     # "gamma", "erlang",

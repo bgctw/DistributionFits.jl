@@ -28,5 +28,6 @@ Currently, support for the following distributios are implemented:
 - Normal
 - Lognormal
 - Logitnormal 
+- Exponential 
 
 See [Documentation](https://bgctw.github.io/DistributionFits.jl/dev)
