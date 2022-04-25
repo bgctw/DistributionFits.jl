@@ -16,6 +16,7 @@ const tests = [
     "normal",
     "lognormal",
     "logitnormal",
+    "exponential",
 ]
 #tests = ["logitnormal"]
 
