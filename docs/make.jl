@@ -23,6 +23,7 @@ makedocs(;
         "Dependencies" => "set_optimize.md",
         "LogNormal" => "lognormal.md",
         "LogitNormal" => "logitnormal.md",
+        "Weibull" => "weibull.md",
         #"Details" => "z_autodocs.md",
     ],
 )

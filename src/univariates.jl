@@ -66,7 +66,7 @@ const continuous_distributions = [
     # "triweight",
     # "uniform",
     # "vonmises",
-    # "weibull"
+    "weibull"
 ]
 
 for dname in discrete_distributions
