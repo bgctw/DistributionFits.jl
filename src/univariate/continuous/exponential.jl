@@ -1,3 +1,5 @@
+
+
 function fit(::Type{Exponential}, m::AbstractMoments)
     # https://en.wikipedia.org/wiki/Exponential_distribution
     n_moments(m) >= 1 || error("Need mean to estimate exponential")
@@ -22,5 +24,3 @@ function fit_mode_quantile(::Type{Exponential}, mode::Real, qp::QuantilePoint)
     θ = -qp.q/log(1-qp.p)
     Exponential(θ)
 end
-
-
