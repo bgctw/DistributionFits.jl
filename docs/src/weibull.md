@@ -4,7 +4,7 @@ CurrentModule = DistributionFits
 
 # Weibull distribution
 
-The Weibull distribution has a scale and a shape parameter.
+The [Weibull distribution](https://juliastats.org/Distributions.jl/stable/univariate/#Distributions.Weibull) has a scale and a shape parameter.
 It can be fitted using two quantiles.
 
 ```jldoctest; output = false, setup = :(using DistributionFits,Optim)
