@@ -32,7 +32,7 @@ struct NotSetOptimizer <: AbstractDistributionFitOptimizer; end
 
 
 optimize(f, ::NotSetOptimizer, lower, upper) = error(
-    "Optimizer not set yet. Either invoke 'use Optim' or 'DistributionFits.set_optimizer(...)'.")
+    "Optimizer not set yet. Either invoke 'using Optim' or 'DistributionFits.set_optimizer(...)'.")
 
 
 optimizer = NotSetOptimizer();

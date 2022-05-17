@@ -32,7 +32,8 @@ const continuous_distributions = [
      "exponential",
     # "fdist",
     # "frechet",
-    # "gamma", "erlang",
+    "gamma", 
+    # "erlang",
     # "pgeneralizedgaussian", # GeneralizedGaussian depends on Gamma
     # "generalizedpareto",
     # "generalizedextremevalue",
