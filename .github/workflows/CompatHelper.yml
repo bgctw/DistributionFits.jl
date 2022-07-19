@@ -20,4 +20,4 @@ jobs:
           committer_email: twutz@bgc-jena.mpg.de
           committer_username: bgctw
           #gh_token: ${{ secrets.GITHUB_TOKEN }}
-        secrets: inherit
+        #secrets: inherit
