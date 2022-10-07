@@ -43,7 +43,7 @@ const continuous_distributions = [
     # "kolmogorov",
     # "ksdist",
     # "ksonesided",
-    # "laplace",
+     "laplace",
     # "levy",
     # "locationscale",
     # "logistic",

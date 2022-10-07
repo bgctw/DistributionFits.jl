@@ -21,10 +21,10 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Dependencies" => "set_optimize.md",
-        "Gamma" => "gamma.md",
         "LogNormal" => "lognormal.md",
         "LogitNormal" => "logitnormal.md",
         "Weibull" => "weibull.md",
+        "Gamma" => "gamma.md",
         #"Details" => "z_autodocs.md",
     ],
 )

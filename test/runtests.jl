@@ -21,6 +21,7 @@ const tests = [
     "lognormal",
     "logitnormal",
     "exponential",
+    "laplace",
     "weibull",
     "gamma",
 ]

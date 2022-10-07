@@ -94,6 +94,15 @@ fit(::Type{D}, ::QuantilePoint, ::QuantilePoint) where {D<:Distribution}
 ```@docs
 fit(::Type{D}, ::Any, ::QuantilePoint, ::Val{stats} = Val(:mean)) where {D<:Distribution, stats}
 ```
+## Currently supported distributions
+Univariate continuous
+- Normal
+- [LogNormal distribution](@ref)
+- [LogitNormal distribution](@ref)
+- Exponential
+- Laplace
+- [Weibull distribution](@ref)
+- [Gamma distribution](@ref)
 
 ## Implementing support for another distribution
 

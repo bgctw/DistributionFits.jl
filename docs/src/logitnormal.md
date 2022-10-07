@@ -2,7 +2,7 @@
 CurrentModule = DistributionFits
 ```
 
-# LogitNormal
+# LogitNormal distribution
 
 ## Aggregate statistics
 The [logitnormal distribution](https://en.wikipedia.org/wiki/Logit-normal_distribution)
