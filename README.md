@@ -21,7 +21,7 @@ This can also be used to approximate one distribution via a different distributi
 
 User needs to [explicitly using Optim.jl](https://bgctw.github.io/DistributionFits.jl/stable/set_optimize/) for DitributionFits.jl to work properly:
 ```julia
-use DistributionFits, Optim
+using DistributionFits, Optim
 ```
 
 Currently, support for the following distributios are implemented:
