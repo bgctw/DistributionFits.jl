@@ -30,12 +30,17 @@ end;
 @testset "fit two quantiles" begin
     qpl = @qp_m(3)
     qpu = @qp_u(5)
-    d = fit(Exponential, qpl, qpu);
+    d = @test_logs (:warn,) fit(Exponential, qpl, qpu);
     #plot(d); 
     #plot!(fit_mode_quantile(Exponential, NaN, qpl))
     #plot!(fit_mode_quantile(Exponential, NaN, qpu))
     #vline!([3,5])
     @test quantile(d, qpl.p) < qpl.q
     @test quantile(d, qpu.p) > qpu.q
+    #
+    d = fit(Exponential, missing, qpu);
+    @test quantile.(d, [qpu.p]) ≈ [qpu.q]
+    d = fit(Exponential, qpl, missing);
+    @test quantile.(d, [qpl.p]) ≈ [qpl.q]
 end;
 
