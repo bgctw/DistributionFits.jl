@@ -11,7 +11,7 @@ function `f` on bounded interval `[lower,upper]`:
 Returning an object with fields `minimizer` and `converged`.
 
 `DistributionFits.set_optimizer(::AbstractDistributionFitOptimizer)` 
-sets the optimizer used in calling the optimize function. 
+sets the AbstractDistributionFitOptimizer used in calling the optimize function. 
 Specializing this function with a concrete type, allows using different
 optimization packages. 
 
@@ -27,14 +27,15 @@ Hence, the module using DistribuitonFits.jl has to either
   for which the corresponding optimize method is implemented.
 """
 abstract type AbstractDistributionFitOptimizer end
-struct OptimOptimizer <:  AbstractDistributionFitOptimizer; end
 struct NotSetOptimizer <: AbstractDistributionFitOptimizer; end
 
+# see to ext/DistributionFitsOptimExt.jl
 
 optimize(f, ::NotSetOptimizer, lower, upper) = error(
     "Optimizer not set yet. Either invoke 'using Optim' or 'DistributionFits.set_optimizer(...)'.")
 
 
-optimizer = NotSetOptimizer();
-optimize(f, lower, upper) = optimize(f, optimizer, lower, upper)
-set_optimizer(opt::AbstractDistributionFitOptimizer) = (global optimizer = opt)
+df_optimizer = NotSetOptimizer();
+optimize(f, lower, upper) = optimize(f, df_optimizer, lower, upper)
+set_optimizer(opt::AbstractDistributionFitOptimizer) = (global df_optimizer = opt)
+
