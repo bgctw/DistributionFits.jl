@@ -40,12 +40,12 @@ export AbstractDistributionFitOptimizer, optimize
 
 include("optimizer.jl")
 
-@static if !isdefined(Base, :get_extension)
-  function __init__()
+
+function __init__()
+  @static if !isdefined(Base, :get_extension)
     @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("../ext/DistributionFitsOptimExt.jl")
   end
 end
-
 
 # fitting distributions to stats
 include("fitstats.jl")

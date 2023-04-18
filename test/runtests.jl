@@ -11,9 +11,12 @@ i_loadlibs = () -> begin
     push!(LOAD_PATH, expanduser("~/julia/18_tools/scimltools/")) # access local package repo
 end
 using Optim: Optim, optimize
+
+DistributionFitsOptimExt = isdefined(Base, :get_extension) ? Base.get_extension(DistributionFits, :DistributionFitsOptimExt) : DistributionFits.DistributionFitsOptimExt
+
 @testset "optimize set in __init__ after using Optim" begin
     # set in __init__
-    @test DistributionFits.df_optimizer isa DistributionFits.DistributionFitsOptimExt.OptimOptimizer
+    @test DistributionFits.df_optimizer isa DistributionFitsOptimExt.OptimOptimizer
 end
 
 const tests = [

@@ -10,7 +10,10 @@ function DistributionFits.optimize(f, ::OptimOptimizer, lower, upper)
     (;minimizer = result.minimizer, converged = result.converged, result)
 end
 
-@info "DistributionFits: setting OptimOptimizer"
-DistributionFits.set_optimizer(OptimOptimizer())
+function __init__()
+    @info "DistributionFits: setting OptimOptimizer"
+    #DistributionFits.set_optimizer(DistributionFitsOptimExt.OptimOptimizer())
+    DistributionFits.set_optimizer(OptimOptimizer())
+end
 
 end
