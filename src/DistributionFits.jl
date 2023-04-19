@@ -5,7 +5,10 @@ using Reexport
 
 using FillArrays, StaticArrays
 using StatsFuns: logit, logistic, normcdf
-using Requires: @require 
+
+if !isdefined(Base, :get_extension)
+  using Requires
+end
 
 # for extension
 import Distributions: mean, var, mode
@@ -21,6 +24,11 @@ export
   @qs_cf90, @qs_cf95,
   fit_mean_relerror
 
+# document but do not export - need to qualify by 'DistributionFits.'
+# export
+#   # Optimizer detail
+#   optimize, set_optimizer  
+
 # LogNormal
 export AbstractΣstar, Σstar, σstar
 
@@ -30,11 +38,13 @@ export fit_mode_flat, shifloNormal
 # dependency inversion: need to define DistributionFits.optimize by user
 export AbstractDistributionFitOptimizer, optimize
 
-
 include("optimizer.jl")
 
+
 function __init__()
-  @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("requires_optim.jl")
+  @static if !isdefined(Base, :get_extension)
+    @require Optim="429524aa-4258-5aef-a3af-852621145aeb" include("../ext/DistributionFitsOptimExt.jl")
+  end
 end
 
 # fitting distributions to stats
