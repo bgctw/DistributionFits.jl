@@ -137,6 +137,10 @@ use the corresponding functions, that create a percentiles of the type
 of qiven quantile.
 E.g. for a Float32-based QuantilePoint at ver low percentile
 - `qp_ll(0.2f0)` constructs a `QuantilePoint(0.2f0,0.025f0)` 
+
+There are macros/functions for some commonly used sets of QuantilePoints: 90% and 95% confidence intervals:
+- `@qs_cf90(q0_05,q0_95)`  
+- `@qs_cf95(q0_025,q0_975)` -> `Set([QuantilePoint(q0_025,0.025),QuantilePoint(q0_975,0.975)]))`
 """
 struct QuantilePoint{TQ,TP}
     q::TQ
