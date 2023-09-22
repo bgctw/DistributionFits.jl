@@ -9,6 +9,8 @@ Documentation for [DistributionFits](https://github.com/bgctw/DistributionFits.j
 ```@index
 ```
 
+<!-- 
 ```@autodocs
 Modules = [DistributionFits]
-```
+``` 
+-->
