@@ -13,7 +13,8 @@ end
 
 # for extension
 import Distributions: mean, var, mode
-import StatsBase: fit
+#import StatsBase: fit
+import StatsAPI: fit
 # Moments also extends getindex, mean, kurtorsis ....
 
 export 
