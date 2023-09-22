@@ -58,7 +58,7 @@ Base.convert(::Type{AbstractArray}, m::Moments) = m.all
 
 Get the first N moments of a distribution.
 
-See also type [`AbstractMoments`](@ref).
+Procudes an object of type [`AbstractMoments`](@ref).
 
 ## Examples
 ```julia
@@ -116,7 +116,28 @@ fit(::Type{D}, m::AbstractMoments) where {D<:Distribution} =
     error("fitting to moments not implemented for distribution of type $D")
 
 
+"""
+    QuantilePoint
 
+A representation of a pair (p,q), i.e. (percentile,quantile).
+
+# Notes
+Several macros help to construct QuantilePoints
+- `@qp(q,p)`    quantile at specified p: `QuantilePoint(q,p)`
+
+For Float64-based percentiles there are shortcuts
+- `@qp_ll(q0_025)`  quantile at very low p: `QuantilePoint(q0_025,0.025)` 
+- `@qp_l(q0_05)`    quantile at low p: `QuantilePoint(q0_05,0.05)` 
+- `@qp_m(median)`   quantile at median: `QuantilePoint(median,0.5)` 
+- `@qp_u(q0_95)`    quantile at high p: `QuantilePoint(q0_95,0.95)`  
+- `@qp_uu(q0_975)`  quantile at very high p: `QuantilePoint(q0_975,0.975)` 
+
+For constructing QuantilePoints with type of percentiles other than Float64, 
+use the corresponding functions, that create a percentiles of the type
+of qiven quantile.
+E.g. for a Float32-based QuantilePoint at ver low percentile
+- `qp_ll(0.2f0)` constructs a `QuantilePoint(0.2f0,0.025f0)` 
+"""
 struct QuantilePoint{TQ,TP}
     q::TQ
     p::TP
@@ -149,6 +170,20 @@ macro qs_cf90(q0_05,q0_95)
 macro qs_cf95(q0_025,q0_975) 
     :(Set([QuantilePoint($(esc(q0_025)),0.025),QuantilePoint($(esc(q0_975)),0.975)])) end
 
+# The non-macro versions return percentile whose type matches that of the argument
+qp_ll(q0_025::T) where T = QuantilePoint(q0_025, T(0.025))
+qplm(q0_05::T) where T = QuantilePoint(q0_05, T(0.05))
+qp_m(median::T) where T = QuantilePoint(median, T(0.5))
+qp_u(q0_95::T) where T = QuantilePoint(q0_95, T(0.95))
+qp_uu(q0_975::T) where T = QuantilePoint(q0_975, T(0.975))
+
+function qs_cf90(q0_05::T,q0_95::T) where T 
+    Set([QuantilePoint(q0_05,T(0.05)),QuantilePoint(q0_95,T(0.95))])
+end
+function qs_cf95(q0_025::T,q0_975::T) where T
+    Set([QuantilePoint(q0_025,T(0.025)),QuantilePoint(q0_975,T(0.975))])
+end
+
 
 """
     fit(D, lower, upper)
@@ -157,17 +192,8 @@ Fit a statistical distribution to a set of quantiles
 
 # Arguments
 - `D`: The type of the distribution to fit
-- `lower`:  lower QuantilePoint (p,q)
+- `lower`:  lower [`QuantilePoint`](@ref) (p,q)
 - `upper`:  upper QuantilePoint (p,q)
-
-# Notes
-Several macros help to construct QuantilePoints
-- `@qp(q,p)`    quantile at specified p: `QuantilePoint(q,p)`
-- `@qp_ll(q0_025)`  quantile at very low p: `QuantilePoint(q0_025,0.025)` 
-- `@qp_l(q0_05)`    quantile at low p: `QuantilePoint(q0_05,0.05)` 
-- `@qp_m(median)`   quantile at median: `QuantilePoint(median,0.5)` 
-- `@qp_u(q0_95)`    quantile at high p: `QuantilePoint(q0_95,0.95)`  
-- `@qp_uu(q0_975)`  quantile at very high p: `QuantilePoint(q0_975,0.975)` 
 
 # Examples
 ```jldoctest; output = false, setup = :(using Statistics,Distributions)
@@ -217,7 +243,10 @@ function fit(::Type{D}, val, qp::QuantilePoint, ::Val{stats} = Val(:mean)) where
     stats == :median && return(fit_median_quantile(D, val, qp))
     error("unknown stats: $stats")
 end,
-function fit_mean_quantile(::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+# function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+#     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
+# end
+function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 end
 function fit_mode_quantile(::Type{D}, mode::Real, qp::QuantilePoint)  where D<:Distribution

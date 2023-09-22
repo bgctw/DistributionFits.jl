@@ -77,12 +77,6 @@ fit(::Type{D}, ::AbstractMoments) where {D<:Distribution}
 moments(d::Distribution, ::Val{N} = Val(2)) where N 
 ```
 
-The syntax `Moments(mean,var)` produces an object of type `Moments <: AbstractMoments`.
-
-```@docs
- AbstractMoments{N}
-```
-
 ## Fit to several quantile points
 
 ```@docs
