@@ -37,7 +37,7 @@ true
 ```
 
 ```@docs
-fit(::Type{LogNormal}, ::Any, ::Σstar) 
+fit(::Type{LogNormal}, ::Any, ::AbstractΣstar) 
 ```
 
 ```@docs

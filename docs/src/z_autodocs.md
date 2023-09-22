@@ -28,6 +28,6 @@ internals
 ```@docs
 meanFunOfProb
 ofLogitNormalModeUpper
-fit(Type{LogNormal}, Any, AbstractΣstar)
 ```
+[comment]: # (fit(Type{LogNormal}, Any, AbstractΣstar))
 
