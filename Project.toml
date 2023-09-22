@@ -10,8 +10,14 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
-StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+StatsAPI = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
 StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
+
+[weakdeps]
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+
+[extensions]
+DistributionFitsOptimExt = "Optim"
 
 [compat]
 Distributions = "0.25"
@@ -20,15 +26,9 @@ Optim = "1.7"
 Reexport = "1.2"
 Requires = "1.2"
 StaticArrays = "1.2"
-StatsBase = "0.33, 0.34"
 StatsFuns = "0.9, 1"
+StatsAPI = "1"
 julia = "1.6"
 
-[extensions]
-DistributionFitsOptimExt = "Optim"
-
 [extras]
-Optim = "429524aa-4258-5aef-a3af-852621145aeb"
-
-[weakdeps]
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"

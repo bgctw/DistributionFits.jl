@@ -82,7 +82,19 @@ end;
         @test @qs_cf90(0.2,0.7) == Set([@qp_l(0.2),@qp_u(0.7)])
         @test @qs_cf95(0.2,0.7) == Set([@qp_ll(0.2),@qp_uu(0.7)])
     end;
+    @testset "functions for Float32" begin
+        @test @qp(0.4f0,0.7f0) == QuantilePoint(0.4f0,0.7f0)
+        @test qp_ll(0.7f0) == QuantilePoint(0.7f0,0.025f0)
+        @test qp_l(0.7f0) == QuantilePoint(0.7f0,0.05f0)
+        @test qp_m(0.7f0) == QuantilePoint(0.7f0,0.5f0)
+        @test qp_u(0.7f0) == QuantilePoint(0.7f0,0.95f0)
+        @test qp_uu(0.7f0) == QuantilePoint(0.7f0,0.975f0)
+        @test qs_cf90(0.2f0,0.7f0) == Set([qp_l(0.2f0),qp_u(0.7f0)])
+        @test qs_cf95(0.2f0,0.7f0) == Set([qp_ll(0.2f0),qp_uu(0.7f0)])
+    end;
 end;
+
+
 
 @testset "global fit functions" begin
     @test_throws ErrorException fit(Distribution, Moments())

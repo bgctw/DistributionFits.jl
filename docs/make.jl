@@ -21,10 +21,13 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Dependencies" => "set_optimize.md",
-        "LogNormal" => "lognormal.md",
-        "LogitNormal" => "logitnormal.md",
-        "Weibull" => "weibull.md",
-        "Gamma" => "gamma.md",
+        "Distributions" => [
+            "LogNormal" => "lognormal.md",
+            "LogitNormal" => "logitnormal.md",
+            "Weibull" => "weibull.md",
+            "Gamma" => "gamma.md",
+        ],
+        "API" => "api.md",
         #"Details" => "z_autodocs.md",
     ],
 )
