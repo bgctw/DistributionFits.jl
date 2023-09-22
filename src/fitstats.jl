@@ -190,7 +190,7 @@ end
 
 
 """
-    fit(D, lower, upper)
+    fit(D, lower::QuantilePoint, upper::QuantilePoint)
 
 Fit a statistical distribution to a set of quantiles 
 
@@ -209,10 +209,8 @@ true
 """
 function fit(::Type{D}, lower::QuantilePoint, upper::QuantilePoint) where D<:Distribution 
     error("fitting to two quantile points not implemented for distribution of type $D")
-end,
-function fit_median_quantile(D::Type{DT}, median, qp::QuantilePoint) where {DT <: Distribution}
-    return(fit(D, @qp_m(median), qp))
 end
+
 
 
 """
@@ -247,15 +245,19 @@ function fit(::Type{D}, val, qp::QuantilePoint, ::Val{stats} = Val(:mean)) where
     stats == :median && return(fit_median_quantile(D, val, qp))
     error("unknown stats: $stats")
 end,
-# function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
-#     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
-# end
+function fit_median_quantile(D::Type{DT}, median, qp::QuantilePoint) where {DT <: Distribution}
+    return(fit(D, @qp_m(median), qp))
+end,
 function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
-end
+end,
 function fit_mode_quantile(::Type{D}, mode::Real, qp::QuantilePoint)  where D<:Distribution
     error("fit_mode_quantile not yet implemented for Distribution of type: $D")
 end
+
+# function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+#     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
+# end
 
 
 
