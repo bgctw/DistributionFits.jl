@@ -132,10 +132,10 @@ For Float64-based percentiles there are shortcuts
 - `@qp_u(q0_95)`    quantile at high p: `QuantilePoint(q0_95,0.95)`  
 - `@qp_uu(q0_975)`  quantile at very high p: `QuantilePoint(q0_975,0.975)` 
 
-For constructing QuantilePoints with type of percentiles other than Float64, 
+For constructing QuantilePoints with type of percentiles other than `Float64`, 
 use the corresponding functions, that create a percentiles of the type
-of qiven quantile.
-E.g. for a Float32-based QuantilePoint at ver low percentile
+of given quantile.
+E.g. for a `Float32`-based QuantilePoint at very low percentile
 - `qp_ll(0.2f0)` constructs a `QuantilePoint(0.2f0,0.025f0)` 
 
 There are macros/functions for some commonly used sets of QuantilePoints: 90% and 95% confidence intervals:

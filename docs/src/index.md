@@ -73,10 +73,6 @@ d = fit(LogNormal, moments(dn))
 fit(::Type{D}, ::AbstractMoments) where {D<:Distribution}
 ```
 
-```@docs
-moments(d::Distribution, ::Val{N} = Val(2)) where N 
-```
-
 ## Fit to several quantile points
 
 ```@docs
