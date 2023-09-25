@@ -5,10 +5,13 @@
 # end
 
 function fit(::Type{Weibull}, lower::QuantilePoint, upper::QuantilePoint)
+    fit(Weibull{Float64}, lower, upper)
+end
+function fit(::Type{Weibull{T}}, lower::QuantilePoint, upper::QuantilePoint) where T
     # https://www.johndcook.com/quantiles_parameters.pdf
     gamma = (log(-log(1-upper.p)) - log(-log(1-lower.p)))/(log(upper.q) -log(lower.q))
     beta = lower.q / (-log(1-lower.p))^(1/gamma)
-    Weibull(gamma, beta)
+    Weibull(T(gamma), T(beta))
 end
 
 # function fit_mean_quantile(::Type{Exponential}, mean::Real, qp::QuantilePoint)

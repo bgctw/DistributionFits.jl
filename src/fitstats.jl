@@ -52,6 +52,7 @@ Moments() = Moments(SA[])
 Base.getindex(m::Moments, i) = n_moments(m) >= i ? m.all[i] : 
     error("$(i)th moment not recorded.")
 Base.convert(::Type{AbstractArray}, m::Moments) = m.all
+Base.eltype(::Moments{N,T}) where {N,T} = T
 
 """
     moments(D, ::Val{N} = Val(2))
@@ -245,10 +246,10 @@ function fit(::Type{D}, val, qp::QuantilePoint, ::Val{stats} = Val(:mean)) where
     stats == :median && return(fit_median_quantile(D, val, qp))
     error("unknown stats: $stats")
 end,
-function fit_median_quantile(D::Type{DT}, median, qp::QuantilePoint) where {DT <: Distribution}
+function fit_median_quantile(::Type{D}, median, qp::QuantilePoint) where {D <: Distribution}
     return(fit(D, @qp_m(median), qp))
 end,
-function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+function fit_mean_quantile(::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 end,
 function fit_mode_quantile(::Type{D}, mode::Real, qp::QuantilePoint)  where D<:Distribution

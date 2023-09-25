@@ -1,5 +1,5 @@
 # estimate the mean by numerical integration over uniform percentiles
-estimateMean(d::ContinuousUnivariateDistribution;kwargs...) = 
+estimateMean(d::ContinuousUnivariateDistribution; kwargs...) = 
   meanFunOfProb(d;kwargs...,fun=(d,p)->quantile(d,p))
 
 # estimate variance by numerical integration over uniform percentiles
