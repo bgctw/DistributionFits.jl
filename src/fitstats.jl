@@ -228,13 +228,13 @@ Fit a statistical distribution to a quantile and given statistics
 
 # Examples
 ```jldoctest fm2; output = false, setup = :(using Statistics,Distributions)
-d = fit(LogNormal, 5, @qp_uu(14));
+d = fit(LogNormal, 5.0, @qp_uu(14));
 (mean(d),quantile(d, 0.975)) .≈ (5,14)
 # output
 (true, true)
 ```
 ```jldoctest fm2; output = false, setup = :(using Statistics,Distributions)
-d = fit(LogNormal, 5, @qp_uu(14), Val(:mode));
+d = fit(LogNormal, 5.0, @qp_uu(14), Val(:mode));
 (mode(d),quantile(d, 0.975)) .≈ (5,14)
 # output
 (true, true)
