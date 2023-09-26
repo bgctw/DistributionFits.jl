@@ -23,7 +23,7 @@ function fit(::Type{Exponential{T}}, lower::Missing, upper::QuantilePoint) where
     Exponential(T(θ_upper))
 end
 
-function fit(dt::Type{Exponential}, lower::QuantilePoint, upper::QuantilePoint)
+function fit(::Type{Exponential}, lower::QuantilePoint, upper::QuantilePoint)
     fit(Exponential{Float64}, lower, upper)
 end
 function fit(dt::Type{Exponential{T}}, lower::QuantilePoint, upper::QuantilePoint) where T
@@ -38,7 +38,7 @@ function fit(dt::Type{Exponential{T}}, lower::QuantilePoint, upper::QuantilePoin
     Exponential(T(θ))
 end
 
-function fit_mean_quantile(dt::Type{Exponential}, mean::T, qp::QuantilePoint) where T <: Real
+function fit_mean_quantile(::Type{Exponential}, mean::T, qp::QuantilePoint) where T <: Real
     fit_mean_quantile(Exponential{T}, mean, qp)
 end
 function fit_mean_quantile(dt::Type{Exponential{T}}, mean::Real, qp::QuantilePoint) where T
@@ -53,7 +53,7 @@ function fit_mean_quantile(::Type{Exponential{T}}, mean::Real, qp::Missing) wher
     fit(Exponential{T}, Moments(mean))
 end
 
-function fit_mode_quantile(dt::Type{<:Exponential}, mode::T, qp::QuantilePoint) where T <: Real
+function fit_mode_quantile(::Type{<:Exponential}, mode::T, qp::QuantilePoint) where T <: Real
     # ignore mode (its always at 0)
     mode != zero(mode) && @warn("ignoring mode when fitting Exponential.")
     fit_mode_quantile(Exponential{T}, missing, qp)

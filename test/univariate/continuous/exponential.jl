@@ -16,3 +16,10 @@ end;
     @test quantile.(d, [qpl.p]) ≈ [qpl.q]
 end;
 
+@testset "fit two quantiles missing" begin
+    qpl = @qp_m(3)
+    d = fit(Exponential, qpl, missing);
+    @test quantile.(d, [qpl.p]) ≈ [qpl.q]
+    d = fit(Exponential, missing, qpl);
+    @test quantile.(d, [qpl.p]) ≈ [qpl.q]
+end;
