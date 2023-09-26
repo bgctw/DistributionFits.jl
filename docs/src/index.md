@@ -20,7 +20,7 @@ d = fit(LogNormal, Moments(3.0,4.0))
 ```
 - mean and upper quantile point
 ```jldoctest; output = false
-d = fit(LogNormal, 3, @qp_uu(8))
+d = fit(LogNormal, 3.0, @qp_uu(8))
 (mean(d), quantile(d, 0.975)) .≈ (3.0, 8.0)
 # output
 (true, true)
@@ -30,7 +30,7 @@ d = fit(LogNormal, 3, @qp_uu(8))
 DocTestSetup = :(using Statistics,DistributionFits,Optim)
 ```
 ```jldoctest; output = false
-d = fit(LogNormal, 3, @qp_uu(8), Val(:mode))
+d = fit(LogNormal, 3.0, @qp_uu(8), Val(:mode))
 (mode(d), quantile(d, 0.975)) .≈ (3.0, 8.0)
 # output
 (true, true)

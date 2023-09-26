@@ -124,7 +124,8 @@ true
 function fit(::Type{LogNormal}, mean::T, σstar::AbstractΣstar) where T <: Real
     _T = promote_type(T, eltype(σstar))
     fit(LogNormal{_T}, mean, σstar)
-end,
+end
+
 function fit(::Type{LogNormal{T}}, mean::Real, σstar::AbstractΣstar) where T
     σ = log(σstar())
     μ = log(mean) - σ*σ/2
