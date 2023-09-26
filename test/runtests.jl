@@ -1,6 +1,7 @@
 using DistributionFits
 using Test
 using Random: Random
+using LoggingExtras
 
 @testset "optimize error" begin
     @test_throws Exception DistributionFits.optimize(x -> x*x, -1, 1)
@@ -19,25 +20,15 @@ DistributionFitsOptimExt = isdefined(Base, :get_extension) ? Base.get_extension(
     @test DistributionFits.df_optimizer isa DistributionFitsOptimExt.OptimOptimizer
 end
 
-const tests = [
-    "fitstats",
-    "normal",
-    "lognormal",
-    "logitnormal",
-    "exponential",
-    "laplace",
-    "weibull",
-    "gamma",
-]
-#tests = ["logitnormal"]
+#include("test/testutils.jl")
+include("testutils.jl")
 
+#include("test/fitstats.jl")
+include("fitstats.jl")
 
-for t in tests
-    @testset "Test $t" begin
-        Random.seed!(345679)
-        include("$t.jl")
-    end
-end
+#include("test/univariate/test_univariate.jl")
+include("univariate/test_univariate.jl")
+
 
 # test coverage of set_optimize (already called  in init)
 

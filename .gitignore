@@ -11,3 +11,4 @@ docs/Manifest.toml
 /jmd/*.md
 /jmd/figures/
 
+test/Manifest.toml

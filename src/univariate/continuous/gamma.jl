@@ -7,6 +7,9 @@
 function fit(::Type{Gamma}, lower::QuantilePoint, upper::QuantilePoint)
     # https://www.johndcook.com/quantiles_parameters.pdf
     #    Shape-scale paras, shape α - cook:α - w:k, scale θ - cook:β - w:θ
+    if upper.p < lower.p
+        lower,upper = upper,lower
+    end
     0 < lower.p < upper.p < 1 || error(
         "Expected 0 < lower.p < upper.p < 1, but got " * 
         "lower.p = $(lower.p) and upper.p = $(upper.p)")

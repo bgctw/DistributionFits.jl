@@ -37,7 +37,7 @@ true
 ```
 
 ```@docs
-fit(::Type{LogNormal}, ::Any, ::AbstractΣstar) 
+fit(::Type{LogNormal}, ::T, ::AbstractΣstar) where T<:Real
 ```
 
 ```@docs

@@ -52,6 +52,7 @@ Moments() = Moments(SA[])
 Base.getindex(m::Moments, i) = n_moments(m) >= i ? m.all[i] : 
     error("$(i)th moment not recorded.")
 Base.convert(::Type{AbstractArray}, m::Moments) = m.all
+Base.eltype(::Moments{N,T}) where {N,T} = T
 
 """
     moments(D, ::Val{N} = Val(2))
@@ -132,10 +133,10 @@ For Float64-based percentiles there are shortcuts
 - `@qp_u(q0_95)`    quantile at high p: `QuantilePoint(q0_95,0.95)`  
 - `@qp_uu(q0_975)`  quantile at very high p: `QuantilePoint(q0_975,0.975)` 
 
-For constructing QuantilePoints with type of percentiles other than Float64, 
+For constructing QuantilePoints with type of percentiles other than `Float64`, 
 use the corresponding functions, that create a percentiles of the type
-of qiven quantile.
-E.g. for a Float32-based QuantilePoint at ver low percentile
+of given quantile.
+E.g. for a `Float32`-based QuantilePoint at very low percentile
 - `qp_ll(0.2f0)` constructs a `QuantilePoint(0.2f0,0.025f0)` 
 
 There are macros/functions for some commonly used sets of QuantilePoints: 90% and 95% confidence intervals:
@@ -227,13 +228,13 @@ Fit a statistical distribution to a quantile and given statistics
 
 # Examples
 ```jldoctest fm2; output = false, setup = :(using Statistics,Distributions)
-d = fit(LogNormal, 5, @qp_uu(14));
+d = fit(LogNormal, 5.0, @qp_uu(14));
 (mean(d),quantile(d, 0.975)) .≈ (5,14)
 # output
 (true, true)
 ```
 ```jldoctest fm2; output = false, setup = :(using Statistics,Distributions)
-d = fit(LogNormal, 5, @qp_uu(14), Val(:mode));
+d = fit(LogNormal, 5.0, @qp_uu(14), Val(:mode));
 (mode(d),quantile(d, 0.975)) .≈ (5,14)
 # output
 (true, true)
@@ -245,10 +246,10 @@ function fit(::Type{D}, val, qp::QuantilePoint, ::Val{stats} = Val(:mean)) where
     stats == :median && return(fit_median_quantile(D, val, qp))
     error("unknown stats: $stats")
 end,
-function fit_median_quantile(D::Type{DT}, median, qp::QuantilePoint) where {DT <: Distribution}
+function fit_median_quantile(::Type{D}, median, qp::QuantilePoint) where {D <: Distribution}
     return(fit(D, @qp_m(median), qp))
 end,
-function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+function fit_mean_quantile(::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 end,
 function fit_mode_quantile(::Type{D}, mode::Real, qp::QuantilePoint)  where D<:Distribution

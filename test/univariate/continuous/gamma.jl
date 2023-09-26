@@ -1,11 +1,13 @@
-# @testset "fit moments" begin
-# end;
+@testset "Default partype" begin
+    d = Gamma(0.5,1.9)
+    # note: did not specify type parameter
+    test_univariate_fits(d,Gamma)
+end;
 
-# @testset "fit to quantilepoint and mode - ignore mode" begin
-# end;
-
-# @testset "fit two quantiles same" begin
-# end;
+@testset "Float32" begin
+    d = LogitNormal(1.3f0)
+    test_univariate_fits(d)
+end;
 
 @testset "fit two quantiles" begin
     qpl = @qp_m(0.5)

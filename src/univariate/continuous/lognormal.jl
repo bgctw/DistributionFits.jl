@@ -1,36 +1,46 @@
-function fit(::Type{LogNormal}, m::AbstractMoments)
+fit(::Type{LogNormal}, m::AbstractMoments) = fit(LogNormal{eltype(m)}, m)
+function fit(::Type{LogNormal{T}}, m::AbstractMoments) where T
     # https://en.wikipedia.org/wiki/Log-normal_distribution
     n_moments(m) >= 2 || error("Need mean and variance to estimate lognormal")
     γ = 1+var(m)/mean(m)^2
     μ = log(mean(m)/sqrt(γ))
     σ = sqrt(log(γ))
-    return LogNormal(μ,σ)
+    return LogNormal(T(μ),T(σ))
 end
 
 function fit(::Type{LogNormal}, lower::QuantilePoint, upper::QuantilePoint)
+    fit(LogNormal{Float64}, lower, upper)
+end
+function fit(::Type{LogNormal{T}}, lower::QuantilePoint, upper::QuantilePoint) where T
     #length(qset) == 2 || error("only implemented yet for exactly two quantiles.")
     #qset_log = [QuantilePoint(qp, q = log(qp.q)) for qp in qset]
     lower_log = QuantilePoint(lower, q = log(lower.q))
     upper_log = QuantilePoint(upper, q = log(upper.q))
-    DN = fit(Normal, lower_log, upper_log)
+    DN = fit(Normal{T}, lower_log, upper_log)
     LogNormal(params(DN)...)
 end
 
-function fit_mean_quantile(::Type{LogNormal}, mean::Real, qp::QuantilePoint)
+function fit_mean_quantile(::Type{LogNormal}, mean::T, qp::QuantilePoint) where T <: Real
+    fit_mean_quantile(LogNormal{T}, mean, qp)
+end
+function fit_mean_quantile(::Type{LogNormal{T}}, mean::Real, qp::QuantilePoint) where T
     # solution of
     # (1) mean = exp(mu + sigma^2/2)
     # (2) upper = mu + sigmaFac sigma
     # see R packaage lognorm inst/doc/coefLognorm.Rmd for derivation
-    sigmaFac = quantile(Normal(),qp.p)
+    sigmaFac = quantile(Normal(), qp.p)
     m = log(mean)
     discr = sigmaFac^2 - 2*(log(qp.q) - m)
     (discr > 0) || error("Cannot fit LogNormal with quantile $(qp) and mean $(mean).")
     sigma = sigmaFac > sqrt(discr) ? (sigmaFac - sqrt(discr)) : sigmaFac + sqrt(discr)
     mu = m - sigma^2/2
-    LogNormal(mu, sigma)
+    LogNormal(T(mu), T(sigma))
 end
 
-function fit_mode_quantile(::Type{LogNormal}, mode::Real, qp::QuantilePoint)
+function fit_mode_quantile(::Type{LogNormal}, mode::T, qp::QuantilePoint) where T <: Real
+    fit_mode_quantile(LogNormal{T}, mode, qp)
+end
+function fit_mode_quantile(::Type{LogNormal{T}}, mode::Real, qp::QuantilePoint) where T
     # solution of
     # (1) mle = exp(mu - sigma^2)
     # (2) upper = mu + sigmaFac sigma
@@ -44,7 +54,7 @@ function fit_mode_quantile(::Type{LogNormal}, mode::Real, qp::QuantilePoint)
     sigma = mfh > root_discr ? (mfh - root_discr) : (mfh + root_discr)
     #sigma = mfh + root_discr
     mu = m + sigma^2
-    LogNormal(mu, sigma)
+    LogNormal(T(mu), T(sigma))
 end
 
 """
@@ -65,10 +75,12 @@ true
 """
 abstract type AbstractΣstar end
 
-struct Σstar <: AbstractΣstar
-    σstar 
+struct Σstar{T} <: AbstractΣstar
+    σstar::T 
 end
 (a::Σstar)() = a.σstar
+Base.eltype(::Type{Σstar{T}}) where T = T
+Base.eltype(::Σstar{T}) where T = T
 
 """
     σstar(d)
@@ -109,10 +121,15 @@ d = fit(LogNormal, 2, Σstar(1.1));
 true
 ```
 """
-function fit(::Type{LogNormal}, mean, σstar::AbstractΣstar)
+function fit(::Type{LogNormal}, mean::T, σstar::AbstractΣstar) where T <: Real
+    _T = promote_type(T, eltype(σstar))
+    fit(LogNormal{_T}, mean, σstar)
+end
+
+function fit(::Type{LogNormal{T}}, mean::Real, σstar::AbstractΣstar) where T
     σ = log(σstar())
     μ = log(mean) - σ*σ/2
-    LogNormal(μ, σ)
+    LogNormal(T(μ), T(σ))
 end
 
 """
