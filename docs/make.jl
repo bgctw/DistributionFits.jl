@@ -11,7 +11,8 @@ DocMeta.setdocmeta!(DistributionFits, :DocTestSetup, :(using DistributionFits); 
 makedocs(;
     modules=[DistributionFits],
     authors="Thomas Wutzler <twutz@bgc-jena.mpg.de> and contributors",
-    repo="https://github.com/bgctw/DistributionFits.jl/blob/{commit}{path}#{line}",
+    #repo="https://github.com/bgctw/DistributionFits.jl/blob/{commit}{path}#{line}",
+    repo = Remotes.GitHub("bgctw", "DistributionFits.jl"),    
     sitename="DistributionFits.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
