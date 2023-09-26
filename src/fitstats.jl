@@ -7,11 +7,11 @@ The following functions are supported
 - `n_moments(m)`: get the number of recorded moments
 
 The following getters return a single moment or 
-throw an error if the moment has not been recorded
-- `mean(m)`: get the mean
-- `var(m)`: get the variance
-- `skewness(m)`: get the variance
-- `kurtosis(m)`: get the variance
+throw an error if the moment has not been recorded (`>N`)
+- `mean(m)`: get the first momemnt, i.e. the mean
+- `var(m)`: get the second moment, i.e. the variance
+- `skewness(m)`: get the third moment, i.e. the skewness
+- `kurtosis(m)`: get the fourth moment, i.e.  the kurtosis
 - `getindex(m,i)`: get the ith moment, i.e. indexing m[i]
 
 The basic implementation `Moments` is immutable and
