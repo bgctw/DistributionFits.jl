@@ -30,29 +30,40 @@ kurtosis(m) # throws error because its above 2nd moment
 ```
 """
 abstract type AbstractMoments{N} end
-n_moments(::Type{<:AbstractMoments{N}}) where N = N
-n_moments(m::AbstractMoments{N}) where N = N
-Distributions.mean(m::AbstractMoments) = n_moments(m) >= 1 ? m[1] : 
+n_moments(::Type{<:AbstractMoments{N}}) where {N} = N
+n_moments(m::AbstractMoments{N}) where {N} = N
+function Distributions.mean(m::AbstractMoments)
+    n_moments(m) >= 1 ? m[1] :
     error("mean not recorded")
-Distributions.var(m::AbstractMoments) = n_moments(m) >= 2 ? m[2] : 
+end
+function Distributions.var(m::AbstractMoments)
+    n_moments(m) >= 2 ? m[2] :
     error("variance not recorded")
-Distributions.std(m::AbstractMoments) = n_moments(m) >= 2 ? sqrt(m[2]) : 
+end
+function Distributions.std(m::AbstractMoments)
+    n_moments(m) >= 2 ? sqrt(m[2]) :
     error("std not recorded")
-Distributions.skewness(m::AbstractMoments) = n_moments(m) >= 3 ? m[3] : 
+end
+function Distributions.skewness(m::AbstractMoments)
+    n_moments(m) >= 3 ? m[3] :
     error("skewness not recorded")
-Distributions.kurtosis(m::AbstractMoments) = n_moments(m) >= 4 ? m[4] : 
+end
+function Distributions.kurtosis(m::AbstractMoments)
+    n_moments(m) >= 4 ? m[4] :
     error("kurtosis not recorded")
+end
 
-
-struct Moments{N,T} <: AbstractMoments{N}
-    all::SVector{N,T}
+struct Moments{N, T} <: AbstractMoments{N}
+    all::SVector{N, T}
 end
 Moments(x...) = Moments(SVector{length(x)}(promote(x...)))
 Moments() = Moments(SA[])
-Base.getindex(m::Moments, i) = n_moments(m) >= i ? m.all[i] : 
+function Base.getindex(m::Moments, i)
+    n_moments(m) >= i ? m.all[i] :
     error("$(i)th moment not recorded.")
+end
 Base.convert(::Type{AbstractArray}, m::Moments) = m.all
-Base.eltype(::Moments{N,T}) where {N,T} = T
+Base.eltype(::Moments{N, T}) where {N, T} = T
 
 """
     moments(D, ::Val{N} = Val(2))
@@ -67,15 +78,15 @@ moments(LogNormal(), Val(4))  # first four moments
 moments(Normal())  # mean and variance
 ```
 """
-function moments(d::Distribution, ::Val{N} = Val(2)) where N 
+function moments(d::Distribution, ::Val{N} = Val(2)) where {N}
     N isa Integer || error("N must be a positive Integer")
-    N > 4 && error("Getting moments above 4 not yet implemented for " * 
-        "distribution $(typeof(d)).")
-    N == 4 && return(Moments(mean(d), var(d), skewness(d), kurtosis(d)))
-    N == 3 && return(Moments(mean(d), var(d), skewness(d)))
-    N == 2 && return(Moments(mean(d), var(d)))
-    N == 1 && return(Moments(mean(d)))
-    N == 0 && return(Moments())
+    N > 4 && error("Getting moments above 4 not yet implemented for " *
+          "distribution $(typeof(d)).")
+    N == 4 && return (Moments(mean(d), var(d), skewness(d), kurtosis(d)))
+    N == 3 && return (Moments(mean(d), var(d), skewness(d)))
+    N == 2 && return (Moments(mean(d), var(d)))
+    N == 1 && return (Moments(mean(d)))
+    N == 0 && return (Moments())
     error("N must be a positive Integer.")
 end
 
@@ -113,9 +124,9 @@ plot(d, label = "lognormal", ylab="probability density")
 plot!(Normal(3,1.2), label = "normal")
 ```
 """
-fit(::Type{D}, m::AbstractMoments) where {D<:Distribution} = 
+function fit(::Type{D}, m::AbstractMoments) where {D <: Distribution}
     error("fitting to moments not implemented for distribution of type $D")
-
+end
 
 """
     QuantilePoint
@@ -143,52 +154,67 @@ There are macros/functions for some commonly used sets of QuantilePoints: 90% an
 - `@qs_cf90(q0_05,q0_95)`  
 - `@qs_cf95(q0_025,q0_975)` -> `Set([QuantilePoint(q0_025,0.025),QuantilePoint(q0_975,0.975)]))`
 """
-struct QuantilePoint{TQ,TP}
+struct QuantilePoint{TQ, TP}
     q::TQ
     p::TP
-    QuantilePoint{TQ,TP}(q,p) where {TQ,TP} = 0 < p < 1 ? new(q,p) : 
+    function QuantilePoint{TQ, TP}(q, p) where {TQ, TP}
+        0 < p < 1 ? new(q, p) :
         error("p must be in (0,1)")
+    end
 end
-QuantilePoint(q,p) = QuantilePoint{typeof(q),typeof(p)}(q,p)
+QuantilePoint(q, p) = QuantilePoint{typeof(q), typeof(p)}(q, p)
 
-QuantilePoint(qp::QuantilePoint; q = qp.q, p = qp.p) = QuantilePoint(q,p)
+QuantilePoint(qp::QuantilePoint; q = qp.q, p = qp.p) = QuantilePoint(q, p)
 Base.show(io::IO, qp::QuantilePoint) = print(io, "QuantilePoint($(qp.q),$(qp.p))")
-function Base.isless(x::QuantilePoint,y::QuantilePoint)
+function Base.isless(x::QuantilePoint, y::QuantilePoint)
     is_equal_q = (x.q == y.q)
     ((x.p == y.p) && !is_equal_q) && error("incompatible: $x,$y")
     isless = (x.q < y.q)
     # for different p, q needs to be different
     (isless && (x.p > y.p)) && error("incompatible: $(x),$(y)")
-    (!isless && !is_equal_q && (x.p < y.p))  && error("incompatible: $x,$y")
-    return(isless)
+    (!isless && !is_equal_q && (x.p < y.p)) && error("incompatible: $x,$y")
+    return (isless)
 end
 
-macro qp(q,p) :(QuantilePoint($(esc(q)), $(esc(p)))) end
-macro qp_ll(q0_025) :(QuantilePoint($(esc(q0_025)),0.025)) end
-macro qp_l(q0_05) :(QuantilePoint($(esc(q0_05)),0.05)) end
-macro qp_m(median) :(QuantilePoint($(esc(median)),0.5)) end
-macro qp_u(q0_95) :(QuantilePoint($(esc(q0_95)),0.95)) end
-macro qp_uu(q0_975) :(QuantilePoint($(esc(q0_975)),0.975)) end
+macro qp(q, p)
+    :(QuantilePoint($(esc(q)), $(esc(p))))
+end
+macro qp_ll(q0_025)
+    :(QuantilePoint($(esc(q0_025)), 0.025))
+end
+macro qp_l(q0_05)
+    :(QuantilePoint($(esc(q0_05)), 0.05))
+end
+macro qp_m(median)
+    :(QuantilePoint($(esc(median)), 0.5))
+end
+macro qp_u(q0_95)
+    :(QuantilePoint($(esc(q0_95)), 0.95))
+end
+macro qp_uu(q0_975)
+    :(QuantilePoint($(esc(q0_975)), 0.975))
+end
 
-macro qs_cf90(q0_05,q0_95) 
-    :(Set([QuantilePoint($(esc(q0_05)),0.05),QuantilePoint($(esc(q0_95)),0.95)])) end
-macro qs_cf95(q0_025,q0_975) 
-    :(Set([QuantilePoint($(esc(q0_025)),0.025),QuantilePoint($(esc(q0_975)),0.975)])) end
+macro qs_cf90(q0_05, q0_95)
+    :(Set([QuantilePoint($(esc(q0_05)), 0.05), QuantilePoint($(esc(q0_95)), 0.95)]))
+end
+macro qs_cf95(q0_025, q0_975)
+    :(Set([QuantilePoint($(esc(q0_025)), 0.025), QuantilePoint($(esc(q0_975)), 0.975)]))
+end
 
 # The non-macro versions return percentile whose type matches that of the argument
-qp_ll(q0_025::T) where T = QuantilePoint(q0_025, T(0.025))
-qp_l(q0_05::T) where T = QuantilePoint(q0_05, T(0.05))
-qp_m(median::T) where T = QuantilePoint(median, T(0.5))
-qp_u(q0_95::T) where T = QuantilePoint(q0_95, T(0.95))
-qp_uu(q0_975::T) where T = QuantilePoint(q0_975, T(0.975))
+qp_ll(q0_025::T) where {T} = QuantilePoint(q0_025, T(0.025))
+qp_l(q0_05::T) where {T} = QuantilePoint(q0_05, T(0.05))
+qp_m(median::T) where {T} = QuantilePoint(median, T(0.5))
+qp_u(q0_95::T) where {T} = QuantilePoint(q0_95, T(0.95))
+qp_uu(q0_975::T) where {T} = QuantilePoint(q0_975, T(0.975))
 
-function qs_cf90(q0_05::T,q0_95::T) where T 
-    Set([QuantilePoint(q0_05,T(0.05)),QuantilePoint(q0_95,T(0.95))])
+function qs_cf90(q0_05::T, q0_95::T) where {T}
+    Set([QuantilePoint(q0_05, T(0.05)), QuantilePoint(q0_95, T(0.95))])
 end
-function qs_cf95(q0_025::T,q0_975::T) where T
-    Set([QuantilePoint(q0_025,T(0.025)),QuantilePoint(q0_975,T(0.975))])
+function qs_cf95(q0_025::T, q0_975::T) where {T}
+    Set([QuantilePoint(q0_025, T(0.025)), QuantilePoint(q0_975, T(0.975))])
 end
-
 
 """
     fit(D, lower::QuantilePoint, upper::QuantilePoint)
@@ -208,11 +234,11 @@ quantile.(d, [0.5, 0.975]) ≈ [3,5]
 true
 ```
 """
-function fit(::Type{D}, lower::QuantilePoint, upper::QuantilePoint) where D<:Distribution 
+function fit(::Type{D},
+    lower::QuantilePoint,
+    upper::QuantilePoint) where {D <: Distribution}
     error("fitting to two quantile points not implemented for distribution of type $D")
 end
-
-
 
 """
     fit(D, val, qp, ::Val{stats} = Val(:mean))
@@ -240,25 +266,31 @@ d = fit(LogNormal, 5.0, @qp_uu(14), Val(:mode));
 (true, true)
 ```
 """
-function fit(::Type{D}, val, qp::QuantilePoint, ::Val{stats} = Val(:mean)) where {D<:Distribution, stats}
-    stats == :mean && return(fit_mean_quantile(D, val, qp))
-    stats == :mode && return(fit_mode_quantile(D, val, qp))
-    stats == :median && return(fit_median_quantile(D, val, qp))
+function fit(::Type{D},
+    val,
+    qp::QuantilePoint,
+    ::Val{stats} = Val(:mean)) where {D <: Distribution, stats}
+    stats == :mean && return (fit_mean_quantile(D, val, qp))
+    stats == :mode && return (fit_mode_quantile(D, val, qp))
+    stats == :median && return (fit_median_quantile(D, val, qp))
     error("unknown stats: $stats")
 end,
-function fit_median_quantile(::Type{D}, median, qp::QuantilePoint) where {D <: Distribution}
-    return(fit(D, @qp_m(median), qp))
+function fit_median_quantile(::Type{D},
+    median,
+    qp::QuantilePoint) where {D <: Distribution}
+    return (fit(D, @qp_m(median), qp))
 end,
-function fit_mean_quantile(::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
+function fit_mean_quantile(::Type{D},
+    mean::Real,
+    qp::QuantilePoint) where {D <: Distribution}
     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 end,
-function fit_mode_quantile(::Type{D}, mode::Real, qp::QuantilePoint)  where D<:Distribution
+function fit_mode_quantile(::Type{D},
+    mode::Real,
+    qp::QuantilePoint) where {D <: Distribution}
     error("fit_mode_quantile not yet implemented for Distribution of type: $D")
 end
 
 # function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
 #     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 # end
-
-
-

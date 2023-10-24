@@ -1,14 +1,13 @@
 @testset "Default partype" begin
-    d = LogNormal(1,0.6)
+    d = LogNormal(1, 0.6)
     # note: did not specify type parameter
-    test_univariate_fits(d,LogNormal)
+    test_univariate_fits(d, LogNormal)
 end;
 
 @testset "Float32" begin
-    d = LogNormal(1f0,0.6f0)
+    d = LogNormal(1.0f0, 0.6f0)
     test_univariate_fits(d)
 end;
-
 
 @testset "Σstar" begin
     ss = Σstar(4.5)
@@ -28,14 +27,13 @@ end;
 end;
 
 @testset "fit_mean_relerror" begin
-    d = fit_mean_relerror(LogNormal, 10.0, 0.03);
-    @test all((mean(d), std(d)/mean(d)) .≈ (10.0, 0.03))
+    d = fit_mean_relerror(LogNormal, 10.0, 0.03)
+    @test all((mean(d), std(d) / mean(d)) .≈ (10.0, 0.03))
     #
     dfit32 = fit_mean_relerror(LogNormal, 10.0f0, 0.03f0)
     @test mean(dfit32) == 10.0
-    @test std(dfit32)/mean(dfit32) ≈ 0.03
+    @test std(dfit32) / mean(dfit32) ≈ 0.03
     @test partype(dfit32) === Float32
     #
     # plot(d); plot!(dfit32)
 end;
-

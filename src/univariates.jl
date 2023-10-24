@@ -1,21 +1,21 @@
 ##### specific distributions #####
 
 const discrete_distributions = [
-    # "bernoulli",
-    # "betabinomial",
-    # "binomial",
-    # "dirac",
-    # "discreteuniform",
-    # "discretenonparametric",
-    # "categorical",
-    # "geometric",
-    # "hypergeometric",
-    # "negativebinomial",
-    # "noncentralhypergeometric",
-    # "poisson",
-    # "skellam",
-    # "soliton",
-    # "poissonbinomial"
+# "bernoulli",
+# "betabinomial",
+# "binomial",
+# "dirac",
+# "discreteuniform",
+# "discretenonparametric",
+# "categorical",
+# "geometric",
+# "hypergeometric",
+# "negativebinomial",
+# "noncentralhypergeometric",
+# "poisson",
+# "skellam",
+# "soliton",
+# "poissonbinomial"
 ]
 
 const continuous_distributions = [
@@ -29,10 +29,10 @@ const continuous_distributions = [
     # "chi",
     # "cosine",
     # "epanechnikov",
-     "exponential",
+    "exponential",
     # "fdist",
     # "frechet",
-    "gamma", 
+    "gamma",
     # "erlang",
     # "pgeneralizedgaussian", # GeneralizedGaussian depends on Gamma
     # "generalizedpareto",
@@ -43,7 +43,7 @@ const continuous_distributions = [
     # "kolmogorov",
     # "ksdist",
     # "ksonesided",
-     "laplace",
+    "laplace",
     # "levy",
     # "locationscale",
     # "logistic",
@@ -51,11 +51,11 @@ const continuous_distributions = [
     # "noncentralchisq",
     # "noncentralf",
     # "noncentralt",
-     "normal",
+    "normal",
     # "normalcanon",
     # "normalinversegaussian",
-     "lognormal",    # LogNormal depends on Normal
-     "logitnormal",    # LogitNormal depends on Normal
+    "lognormal",    # LogNormal depends on Normal
+    "logitnormal",    # LogitNormal depends on Normal
     # "pareto",
     # "rayleigh",
     # "semicircle",
@@ -67,7 +67,7 @@ const continuous_distributions = [
     # "triweight",
     # "uniform",
     # "vonmises",
-    "weibull"
+    "weibull",
 ]
 
 for dname in discrete_distributions

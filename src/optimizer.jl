@@ -31,15 +31,15 @@ Developers implementing usage of a different specific optimizer see code in
 ext/DistributionFitsOptimExt.
 """
 abstract type AbstractDistributionFitOptimizer end
-struct NotSetOptimizer <: AbstractDistributionFitOptimizer; end
+struct NotSetOptimizer <: AbstractDistributionFitOptimizer end
 
 # see to ext/DistributionFitsOptimExt.jl
 
-optimize(f, ::NotSetOptimizer, lower, upper) = error(
-    "Optimizer not set yet. Either invoke 'using Optim' or 'DistributionFits.set_optimizer(...)'.")
-
+function optimize(f, ::NotSetOptimizer, lower, upper)
+    error("Optimizer not set yet. Either invoke 'using Optim' " *
+          "or 'DistributionFits.set_optimizer(...)'.")
+end
 
 df_optimizer = NotSetOptimizer();
 optimize(f, lower, upper) = optimize(f, df_optimizer, lower, upper)
 set_optimizer(opt::AbstractDistributionFitOptimizer) = (global df_optimizer = opt)
-
