@@ -37,3 +37,15 @@ end;
     #
     # plot(d); plot!(dfit32)
 end;
+
+@testset "fit_mode_quantile_0.5" begin
+    # special for LogitNormal mode
+    d = fit_mode_quantile(LogNormal, 0.5, @qp(0.9, 0.95))
+    @test mode(d) ≈ 0.5
+    @test quantile(d, 0.95) ≈ 0.9
+    #
+    dfit32 = fit_mode_quantile(LogNormal, 0.5f0, @qp(0.9, 0.95))
+    @test partype(dfit32) === Float32
+    @test mode(d) ≈ 0.5
+    @test quantile(d, 0.95) ≈ 0.9
+end;

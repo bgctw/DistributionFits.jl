@@ -36,12 +36,12 @@ function fit_mode_quantile(::Type{LogitNormal},
     fit_mode_quantile(LogitNormal{T}, mode, qp)
 end
 function fit_mode_quantile(::Type{LogitNormal{T}}, mode::Real, qp::QuantilePoint) where {T}
-    matchModeUpper(T(mode), qp.q, Val(40); perc = qp.p)
+    matchModeUpper(T(mode), qp, Val(40))
 end
 
-function matchModeUpper(mode::T, upper, ::Val{nTry}
-    ; perc::Real = 0.99) where {nTry, T <: Real}
-    mode == 0.5 && return matchMedianUpper(LogitNormal, 0.5, upper; perc = perc)
+function matchModeUpper(mode::T, qp::QuantilePoint, ::Val{nTry}) where {nTry, T <: Real}
+    # for symmetric - same as fitting median
+    mode == 0.5 && return fit_median_quantile(LogitNormal, mode, qp)
     # for given mu we can compute sigma by mode and upper quantile
     # hence univariate search for mu
     # we now that mu is in (\code{logit(mode)},0) for \code{mode < 0.5} and in 
@@ -50,6 +50,8 @@ function matchModeUpper(mode::T, upper, ::Val{nTry}
     # hence, first get near the global minimum by a evaluating the cost at a 
     # grid that is spaced narrower at the edge
     #
+    upper = qp.q
+    perc = qp.p
     logitMode = logit(mode)
     logitUpper = logit(upper)
     upperMu = abs(logitMode) - eps()
