@@ -4,7 +4,7 @@ using Random: Random
 using LoggingExtras
 
 @testset "optimize error" begin
-    @test_throws Exception DistributionFits.optimize(x -> x*x, -1, 1)
+    @test_throws Exception DistributionFits.optimize(x -> x * x, -1, 1)
 end
 # Optim package for interactive testing
 i_loadlibs = () -> begin
@@ -13,7 +13,9 @@ i_loadlibs = () -> begin
 end
 using Optim: Optim, optimize
 
-DistributionFitsOptimExt = isdefined(Base, :get_extension) ? Base.get_extension(DistributionFits, :DistributionFitsOptimExt) : DistributionFits.DistributionFitsOptimExt
+DistributionFitsOptimExt = isdefined(Base, :get_extension) ?
+                           Base.get_extension(DistributionFits, :DistributionFitsOptimExt) :
+                           DistributionFits.DistributionFitsOptimExt
 
 @testset "optimize set in __init__ after using Optim" begin
     # set in __init__
@@ -29,11 +31,9 @@ include("fitstats.jl")
 #include("test/univariate/test_univariate.jl")
 include("univariate/test_univariate.jl")
 
-
 # test coverage of set_optimize (already called  in init)
 
 # print method ambiguities
 println("Potentially stale exports: ")
 display(Test.detect_ambiguities(DistributionFits))
 println()
-
