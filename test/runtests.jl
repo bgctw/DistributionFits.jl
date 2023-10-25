@@ -3,6 +3,12 @@ using Test
 using Random: Random
 using LoggingExtras
 
+#using Aqua; Aqua.test_all(DistributionFits) # ambiguities from other packages
+#using JET; JET.report_package(DistributionFits) # 
+#invalid possible error due to quantile may accept/return an Array (we pass a scalar)
+#only report problems in this module:
+#using JET; JET.report_package(DistributionFits; target_modules=(@__MODULE__,)) # 
+
 @testset "optimize error" begin
     @test_throws Exception DistributionFits.optimize(x -> x * x, -1, 1)
 end
@@ -37,3 +43,11 @@ include("univariate/test_univariate.jl")
 println("Potentially stale exports: ")
 display(Test.detect_ambiguities(DistributionFits))
 println()
+
+using JET: JET
+@testset "JET" begin
+    @static if VERSION ≥ v"1.9.2"
+        JET.test_package(DistributionFits; target_modules=(@__MODULE__,)) # 
+    end    
+end;
+

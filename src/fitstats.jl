@@ -203,6 +203,7 @@ macro qs_cf95(q0_025, q0_975)
 end
 
 # The non-macro versions return percentile whose type matches that of the argument
+qp(q,p) = QuantilePoint(q, p)
 qp_ll(q0_025::T) where {T} = QuantilePoint(q0_025, T(0.025))
 qp_l(q0_05::T) where {T} = QuantilePoint(q0_05, T(0.05))
 qp_m(median::T) where {T} = QuantilePoint(median, T(0.5))
