@@ -41,5 +41,12 @@ function optimize(f, ::NotSetOptimizer, lower, upper)
 end
 
 df_optimizer = NotSetOptimizer();
-optimize(f, lower, upper) = optimize(f, df_optimizer, lower, upper)
+function optimize(f, lower::T, upper::T) where T
+    ans = optimize(f, df_optimizer, lower, upper)
+    # since df_optimizer is global, the returntype of optimize is not inferred
+    # provide type hints for minizer and converged, but provide full answer in NamedTuple
+    minimizer = ans.minimizer::T
+    converged = ans.converged::Bool
+    (;minimizer, converged, ans)
+end
 set_optimizer(opt::AbstractDistributionFitOptimizer) = (global df_optimizer = opt)
