@@ -70,7 +70,7 @@ Base.eltype(::Moments{N, T}) where {N, T} = T
 
 Get the first N moments of a distribution.
 
-Procudes an object of type [`AbstractMoments`](@ref).
+Produces an object of type [`AbstractMoments`](@ref).
 
 ## Examples
 ```julia

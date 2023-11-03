@@ -56,7 +56,7 @@ $$
 \end{aligned}
 $$
 
-Analytically solving for $x_t$ is complicated by $x_t$ occuring outside and
+Analytically solving for $x_t$ is complicated by $x_t$ occurring outside and
 inside the logit function. However, we can use
 the constraint to determine $x_t$ by numerical optimization, minimizing the
 difference between the right and the left hand side.

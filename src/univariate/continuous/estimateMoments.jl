@@ -30,7 +30,7 @@ function meanFunOfProb(d::ContinuousUnivariateDistribution;
     #---|---|---|---#
     # |---|---|---| #
     # we need to add points for δ/4 and 1-δ/4 representing the edges
-    # but their weight is only half, because they represents half an inverval
+    # but their weight is only half, because they represents half an interval
     #m = sum(c_i*δ) + el*(δ/2) + er*(δ/2) = (sum(c_i) + er/2 + el/2)*δ
     s = sum(fun.(d, p))   # sum at points c_i
     el = fun(d, δ / 4)  # 

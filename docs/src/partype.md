@@ -18,7 +18,7 @@ partype(d) == Float32
 true
 ```
 
-## Infering the parametric type from other arguments.
+## Inferring the parametric type from other arguments.
 
 If the parametric type is omitted, default Float64 is assumed, or inferred from
 other parameters of the fitting function.
