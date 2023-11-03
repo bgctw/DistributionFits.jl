@@ -29,14 +29,14 @@ However, user might have an idea of the spread, or the inverse: peakedness,
 of the distribution.
 
 With increasing spread, the logitnormal distribution becomes bimodal.
-The following functiion estimates the most spread, i.e most
+The following function estimates the most spread, i.e most
 flat distribution that has a single mode at the given location.
 
 ```@docs
 fit_mode_flat
 ```
 
-The found maximum spread parameter, σ, is devided by the peakedness
+The found maximum spread parameter, σ, is divided by the peakedness
 argument to specify distributions given the mode that are more
 peaked.
 

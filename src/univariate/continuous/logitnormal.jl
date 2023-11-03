@@ -60,8 +60,8 @@ function matchModeUpper(mode::T, qp::QuantilePoint, ::Val{nTry}) where {nTry, T 
     oF(mu) = ofLogitNormalModeUpper(mu, mode, logitMode, logitUpper, perc)
     ofMuTry = oF.(muTry)
     iMin = argmin(ofMuTry)
-    # on postive side muTry are increasing, on negative side muTry decreasing
-    # neet to have the lower value at the beginning of the interval
+    # on positive side muTry are increasing, on negative side muTry decreasing
+    # need to have the lower value at the beginning of the interval
     interval = (logitMode >= 0) ?
                (muTry[max(1, iMin - 1)], muTry[min(nTry, iMin + 1)]) :
                (muTry[max(1, iMin + 1)], muTry[min(nTry, max(1, iMin - 1))])
@@ -96,7 +96,7 @@ end
 
 Find the maximum-spread logitnormal distribution that has a single mode at given location.
 
-More peaked distributions with given single mode can be optained by increasing
+More peaked distributions with given single mode can be obtained by increasing
 argument peakedness. They will have a spread by originally inferred σ² devidied 
 by peakedness.
 
