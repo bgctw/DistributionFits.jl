@@ -1,3 +1,13 @@
+using DistributionFits
+using Test
+using Random: Random
+using LoggingExtras
+using Optim
+
+pkgdir = dirname(dirname(pathof(DistributionFits)))
+testdir = joinpath(pkgdir, "test")
+include(joinpath(testdir,"testutils.jl"))
+
 function test_univariate_fits(d, D = typeof(d))
     @testset "fit moments" begin
         if !occursin("fit(::Type{D}",
@@ -110,6 +120,7 @@ function test_univariate_fits(d, D = typeof(d))
     end
 end
 
+
 const tests = [
     "weibull",
     "normal",
@@ -124,6 +135,6 @@ const tests = [
 for t in tests
     @testset "Test $t" begin
         Random.seed!(345679)
-        include("continuous/$t.jl")
+        include(joinpath(testdir,"univariate","continuous","$t.jl"))
     end
 end
