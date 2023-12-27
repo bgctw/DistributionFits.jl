@@ -8,7 +8,7 @@ using Aqua
             DistributionFits;
             #unbound_args = false, # does not recognize NamedTuple{K, NTuple{N,E}}
             stale_deps = (ignore = [:Requires],),
-            #ambiguities = false, # many ambiguities in Symbolic and Stats packages
+            ambiguities = false, # ambiguities in StatsBase
             piracies = false
         )
     end;
