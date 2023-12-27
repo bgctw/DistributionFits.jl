@@ -21,7 +21,7 @@ DistributionFitsOptimExt = "Optim"
 
 [compat]
 Distributions = "0.25"
-FillArrays = "0.16, 1"
+FillArrays = "1.0"
 Optim = "1.7"
 Reexport = "1.2"
 Requires = "1.2"
