@@ -28,6 +28,10 @@ jobs:
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
+      - uses: cjdoris/julia-downgrade-compat-action@v1
+        if: ${{ matrix.version == '1.6' }}
+        with:
+          skip: Pkg,TOML,Statistics          
       - uses: actions/cache@v1
         env:
           cache-name: cache-artifacts
