@@ -3,6 +3,30 @@ using Test
 using Random: Random
 using LoggingExtras
 
+
+tmpf = () -> begin
+    push!(LOAD_PATH, expanduser("~/julia/devtools/")) # access local pack
+    push!(LOAD_PATH, joinpath(pwd(), "test/")) # access local pack
+end
+
+using Test, SafeTestsets
+const GROUP = get(ENV, "GROUP", "All") # defined in in CI.yml
+@show GROUP
+
+# @time begin
+#     if GROUP == "All" || GROUP == "Basic"
+#         #@safetestset "Tests" include("test/test_plant_face_fluct.jl")
+#         @time @safetestset "plant_face_fluct" include("test_plant_face_fluct.jl")
+#     end
+#     if GROUP == "All" || GROUP == "JET"
+#         #@safetestset "Tests" include("test/test_JET.jl")
+#         @time @safetestset "test_JET" include("test_JET.jl")
+#         #@safetestset "Tests" include("test/test_aqua.jl")
+#         @time @safetestset "test_Aqua" include("test_aqua.jl")
+#     end
+# end
+
+
 #using Aqua; Aqua.test_all(DistributionFits) # ambiguities from other packages
 #using JET; JET.report_package(DistributionFits) # 
 #invalid possible error due to quantile may accept/return an Array (we pass a scalar)
@@ -11,11 +35,6 @@ using LoggingExtras
 
 @testset "optimize error" begin
     @test_throws Exception DistributionFits.optimize(x -> x * x, -1, 1)
-end
-# Optim package for interactive testing
-i_loadlibs = () -> begin
-    push!(LOAD_PATH, expanduser("~/julia/scimltools/")) # access local package repo
-    push!(LOAD_PATH, expanduser("~/julia/18_tools/scimltools/")) # access local package repo
 end
 using Optim: Optim, optimize
 

@@ -1,3 +1,5 @@
+# TODO: think of type piracy
+# this is not in Distributions (which ownes LogitNormal) because of dependency on optimize
 mean(d::LogitNormal{T}; kwargs...) where {T} = T(estimateMean(d, kwargs...))
 
 function mode(d::LogitNormal{T}) where {T}
