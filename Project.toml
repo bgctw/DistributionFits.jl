@@ -20,7 +20,7 @@ Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 DistributionFitsOptimExt = "Optim"
 
 [compat]
-Distributions = "0.25"
+Distributions = "0.25.102"
 FillArrays = "1"
 Optim = "1.7"
 Reexport = "1.2"
