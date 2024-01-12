@@ -8,7 +8,7 @@ Can be fitted to a given mean, provided the Covariance of the underlying
 normal distribution.
 
 ```@docs
-fit_mean_Σ(::Type{MvLogNormal}, ::AbstractVector, ::AbstractVector) 
+fit_mean_Σ(::Type{MvLogNormal}, mean::AbstractVector{T1}, Σ::AbstractMatrix{T2}) where {T1 <:Real,T2 <:Real}
 ```
 
 ```jldoctest; output = false, setup = :(using DistributionFits)

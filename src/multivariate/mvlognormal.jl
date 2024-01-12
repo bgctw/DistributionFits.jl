@@ -3,8 +3,9 @@
 
 Fit a Distribution to mean and uncertainty quantificator Σ. 
 
-The meaning of Σ depends on the Distribution. For MvLogNormal, its the Covariancematrix of 
-the associated normal distribution.
+The meaning of `Σ` depends on the type of distribution:
+- `MvLogNormal`: the Covariancematrix of the associated normal distribution
+- `LogNormal`: the scale parameter, i.e. the standard deviation at log-scale, `σ`
 """
 function fit_mean_Σ(::Type{MvLogNormal}, mean::AbstractVector{T1}, Σ::AbstractMatrix{T2}) where {T1 <:Real,T2 <:Real}
     _T = promote_type(T1, T2)
