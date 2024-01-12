@@ -101,17 +101,20 @@ true
 σstar(d::LogNormal) = exp(params(d)[2])
 
 """
-    fit(D, mean, σstar)
+    fit(D, mean, σstar::AbstractΣstar)
+    fit_mean_Σ(D, mean, σ::Real)
     
 Fit a statistical distribution of type `D` to mean and multiplicative 
-standard deviation.
+standard deviation, `σstar`, or scale parameter at log-scale: `σ`.
 
 # Arguments
 - `D`: The type of distribution to fit
 - `mean`: The moments of the distribution
 - `σstar::AbstractΣstar`: The multiplicative standard deviation
+- `σ`: The standard-deviation parameter at log-scale
 
-See also [`σstar`](@ref), [`AbstractΣstar`](@ref). 
+The first version uses type [`AbstractΣstar`](@ref) to distinguish from 
+other methods of function fit. 
 
 # Examples
 ```jldoctest fm1; output = false, setup = :(using DistributionFits)
@@ -121,16 +124,22 @@ d = fit(LogNormal, 2, Σstar(1.1));
 true
 ```
 """
-function fit(::Type{LogNormal}, mean::T, σstar::AbstractΣstar) where {T <: Real}
-    _T = promote_type(T, eltype(σstar))
-    fit(LogNormal{_T}, mean, σstar)
+function fit(d::Type{LogNormal}, mean, σstar::AbstractΣstar) 
+    fit_mean_Σ(d, mean, log(σstar()))
 end
-
-function fit(::Type{LogNormal{T}}, mean::Real, σstar::AbstractΣstar) where {T}
-    σ = log(σstar())
+function fit(d::Type{LogNormal{T}}, mean::Real, σstar::AbstractΣstar) where {T}
+    fit_mean_Σ(d, mean, log(σstar()))
+end
+function fit_mean_Σ(::Type{LogNormal}, mean::T1, σ::T2) where {T1 <: Real,T2 <: Real}
+    _T = promote_type(T1, T2)
+    fit_mean_Σ(LogNormal{_T}, mean, σ)
+end
+function fit_mean_Σ(::Type{LogNormal{T}}, mean::Real, σ::Real) where {T}
+    #σ = log(σstar())
     μ = log(mean) - σ * σ / 2
     LogNormal(T(μ), T(σ))
 end
+
 
 """
     fit_mean_relerror(D, mean, relerror)

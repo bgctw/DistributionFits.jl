@@ -1,6 +1,7 @@
 tmpf = () -> begin
-    push!(LOAD_PATH, expanduser("~/julia/devtools/")) # access local pack
-    push!(LOAD_PATH, joinpath(pwd(), "test/")) # access local pack
+    pop!(LOAD_PATH)
+    push!(LOAD_PATH, joinpath(pwd(), "test/"))
+    push!(LOAD_PATH, expanduser("~/julia/devtools_$(VERSION.major).$(VERSION.minor)"))
 end
 
 using Test, SafeTestsets
@@ -15,6 +16,8 @@ const GROUP = get(ENV, "GROUP", "All") # defined in in CI.yml
         @time @safetestset "fitstats" include("fitstats.jl")
         #@safetestset "Tests" include("test/univariate/test_univariate.jl")
         @time @safetestset "test_univariate" include("univariate/test_univariate.jl")
+        #@safetestset "Tests" include("test/multivariate/test_multivariate.jl")
+        @time @safetestset "test_multivariate" include("multivariate/test_multivariate.jl")
     end
     if GROUP == "All" || GROUP == "JET"
         #@safetestset "Tests" include("test/test_JET.jl")

@@ -21,13 +21,28 @@ d = LogNormal(log(2), log(1.2))
 true
 ```
 
-Alternatively the distribution can be specified by its mean and ``\sigma^*`` using type [`AbstractΣstar`](@ref)
+Alternatively the distribution can be specified by its mean and either 
+- Multiplicative standard deviation,``\sigma^*``, using type [`AbstractΣstar`](@ref)
+- Standard deviation at log-scale, ``\sigma``, or
+- relative error, ``cv``. 
 
 ```jldoctest; output = false, setup = :(using DistributionFits,Optim)
 d = fit(LogNormal, 2, Σstar(1.2))
 (mean(d), σstar(d)) == (2, 1.2)
 # output
 true
+```
+```jldoctest; output = false, setup = :(using DistributionFits,Optim)
+d = fit_mean_Σ(LogNormal, 2, 1.2)
+(mean(d),  d.σ) == (2, 1.2)
+# output
+true
+```
+```jldoctest; output = false, setup = :(using DistributionFits,Optim)
+d = fit_mean_relerror(LogNormal, 2, 0.2)
+(mean(d), std(d)/mean(d)) .≈ (2, 0.2)
+# output
+(true, true)
 ```
 
 ## Detailed API
@@ -37,7 +52,7 @@ true
 ```
 
 ```@docs
-fit(::Type{LogNormal}, ::T, ::AbstractΣstar) where T<:Real
+fit(d::Type{LogNormal}, mean, σstar::AbstractΣstar)
 ```
 
 ```@docs

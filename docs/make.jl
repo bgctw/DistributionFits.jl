@@ -29,6 +29,7 @@ makedocs(;
             "LogitNormal" => "logitnormal.md",
             "Weibull" => "weibull.md",
             "Gamma" => "gamma.md",
+            "MvLogNormal" => "mvlognormal.md",
         ],
         "Dependencies" => "set_optimize.md",
         "API" => "api.md",

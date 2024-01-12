@@ -24,6 +24,11 @@ end;
     #
     dfit32 = fit(LogNormal, Float32(mean(d)), Σstar(1.2f0))
     @test partype(dfit32) === Float32
+    #
+    # former fit without type was type piracy
+    # d_fit = fit(LogNormal, mean(d), log(1.2))
+    # @test d == d_fit
+    # @test σstar(d) ≈ 1.2
 end;
 
 @testset "fit_mean_relerror" begin
