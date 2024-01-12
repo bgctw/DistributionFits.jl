@@ -5,8 +5,10 @@ using Logging, LoggingExtras
 
 @testset "JET" begin
     @static if VERSION ≥ v"1.9.2"
-        logger = ActiveFilteredLogger(global_logger()) do args
-            return !isnothing(match(r"overwritten in module .+ on the same line", args.message))
+        logger = ActiveFilteredLogger(current_logger()) do args
+            is_filtered = !isnothing(match(r"overwritten in module .+ on the same line", args.message))
+            @show is_filtered, args.message
+            is_filtered
         end        
         with_logger(logger) do
             JET.test_package(DistributionFits; target_modules = (@__MODULE__,))
