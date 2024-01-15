@@ -5,7 +5,7 @@ for fname in [
     # "multinomial.jl",
     # "dirichletmultinomial.jl",
     # "jointorderstatistics.jl",
-    # "mvnormal.jl",
+    "mvnormal.jl",
     # "mvnormalcanon.jl",
     # "mvlogitnormal.jl",
     "mvlognormal.jl",
