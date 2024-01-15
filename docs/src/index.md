@@ -87,7 +87,7 @@ fit(::Type{D}, ::Any, ::QuantilePoint, ::Val{stats} = Val(:mean)) where {D<:Dist
 
 ## Fit to mean and uncertainty parameter
 For bayesian inversion it is often required to specify a distribution given
-the expected value (the predction of the population value) and a desciption of 
+the expected value (the predction of the population value) and a description of 
 uncertainty of an observation.
 
 ```@docs
