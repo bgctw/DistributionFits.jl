@@ -84,6 +84,17 @@ fit(::Type{D}, ::QuantilePoint, ::QuantilePoint) where {D<:Distribution}
 ```@docs
 fit(::Type{D}, ::Any, ::QuantilePoint, ::Val{stats} = Val(:mean)) where {D<:Distribution, stats}
 ```
+
+## Fit to mean and uncertainty parameter
+For bayesian inversion it is often required to specify a distribution given
+the expected value (the predction of the population value) and a desciption of 
+uncertainty of an observation.
+
+```@docs
+fit_mean_Σ
+```
+
+
 ## Currently supported distributions
 Univariate continuous
 - Normal

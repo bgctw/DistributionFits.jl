@@ -123,6 +123,7 @@ end
 
 const tests = [
     "mvlognormal",
+    "mvnormal",
 ]
 #tests = ["mvlognormal"]
 

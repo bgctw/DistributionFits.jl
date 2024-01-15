@@ -35,3 +35,12 @@ end
 function fit_mode_quantile(D::Type{Normal{T}}, mode::Real, qp::QuantilePoint) where {T}
     fit(D, QuantilePoint(mode, 0.5), qp)
 end
+
+function fit_mean_Σ(::Type{Normal}, mean::T1, σ::T2) where {T1 <: Real, T2 <: Real}
+    _T = promote_type(T1,T2)
+    fit_mean_Σ(Normal{_T}, mean, σ)
+end
+function fit_mean_Σ(D::Type{Normal{T}}, mean::Real, σ::Real) where {T}
+    Normal{T}(mean, σ)
+end
+

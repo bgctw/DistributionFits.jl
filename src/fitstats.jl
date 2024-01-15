@@ -295,3 +295,15 @@ end
 # function fit_mean_quantile(d::Type{D}, mean::Real, qp::QuantilePoint) where D<:Distribution  
 #     error("fit_mean_quantile not yet implemented for Distribution of type: $D")
 # end
+
+"""
+    fit_mean_Σ(::Type{<:Distribution}, mean, Σ)
+
+Fit a Distribution to mean and uncertainty quantificator Σ. 
+
+The meaning of `Σ` depends on the type of distribution:
+- `MvLogNormal`, `MvNormal`: the Covariancematrix of the associated normal distribution
+- `LogNormal`, `Normal`: the scale parameter, i.e. the standard deviation at log-scale, `σ`
+"""
+function fit_mean_Σ end
+ 
