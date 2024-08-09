@@ -38,7 +38,10 @@ end
 
 function fit_mean_Σ(::Type{Normal}, mean::T1, σ::T2) where {T1 <: Real, T2 <: Real}
     _T = promote_type(T1,T2)
-    fit_mean_Σ(Normal{_T}, mean, σ)
+    mean_p = _T(mean)
+    σ_p = _T(σ)
+    #(mean_p, σ_p) = (mean, σ)     # first make test fit_mean_Σ_ForwardDiff fail
+    fit_mean_Σ(Normal{_T}, mean_p, σ_p)
 end
 function fit_mean_Σ(D::Type{Normal{T}}, mean::Real, σ::Real) where {T}
     Normal{T}(mean, σ)

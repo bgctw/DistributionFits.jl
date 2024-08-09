@@ -3,6 +3,7 @@ using Test
 using Random: Random
 using LoggingExtras
 using Optim
+using ForwardDiff
 
 pkgdir = dirname(dirname(pathof(DistributionFits)))
 testdir = joinpath(pkgdir, "test")

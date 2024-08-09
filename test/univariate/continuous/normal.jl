@@ -16,3 +16,14 @@ end;
     @test mean(d) == m
     @test scale(d) == σ
 end;
+
+@testset "fit_mean_Σ_ForwardDiff" begin
+    m = 3.0
+    σ = 2.0
+    f(m) = begin
+        d = fit_mean_Σ(Normal, m, σ)
+        mode(d)
+    end
+    f(m)
+    dm = ForwardDiff.derivative(f, m)
+end;
