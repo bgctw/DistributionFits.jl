@@ -54,3 +54,23 @@ end;
     @test mode(d) ≈ 0.5
     @test quantile(d, 0.95) ≈ 0.9
 end;
+
+@testset "fitting ScaledLogNormal" begin
+    d2 = fit_mean_Σ(ScaledLogNormal, -1, log(1.1))
+    @test d2 isa ScaledLogNormal
+    @test σstar(d2) == 1.1
+  
+    d2 = fit_mean_Σ(ScaledLogNormal, 1.0, log(1.1))
+    @test d2 isa ScaledLogNormal
+    @test mean(d2) == 1.0
+    @test σstar(d2) == 1.1
+  
+    # take care to specify qp_ll here, its lower than mode
+    d3 = fit(ScaledLogNormal, -1.0, @qp_ll(-1.32), Val(:mode))
+    @test d3 isa ScaledLogNormal
+    @test mode(d3) == -1.0
+    @test quantile(d3, 0.025) ≈ -1.32
+  
+    d3 = fit(ScaledLogNormal, 1.0, @qp_uu(1.32), Val(:mode))
+    @test d3 isa ScaledLogNormal
+end;

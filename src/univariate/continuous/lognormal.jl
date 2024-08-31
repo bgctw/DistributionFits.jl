@@ -166,3 +166,32 @@ function fit_mean_relerror(::Type{LogNormal}, mean, relerror)
     σ = sqrt(log(w))
     LogNormal(μ, σ)
 end
+
+
+#---- support LogNormal(-x) of negative values ------------
+const ScaledLogNormal{T} = LocationScale{T, Continuous, LogNormal{T}} where T
+
+σstar(d::ScaledLogNormal) = exp(params(d.ρ)[2])
+
+
+function fit_mean_Σ(::Type{ScaledLogNormal}, mean::T1, σ::T2) where {T1 <: Real,T2 <: Real}
+    _T = promote_type(T1, T2)
+    fit_mean_Σ(ScaledLogNormal{_T}, mean, σ)
+end
+function fit_mean_Σ(d::Type{ScaledLogNormal{T}}, mean::Real, σ::Real) where T
+    mean < 0 && return(-1 * fit_mean_Σ(LogNormal{T}, -mean, σ))
+    1 * fit_mean_Σ(LogNormal{T}, mean, σ)
+end
+
+function fit_mode_quantile(::Type{ScaledLogNormal}, mode::T, qp::QuantilePoint) where T<:Real
+    fit_mode_quantile(ScaledLogNormal{T}, mode, qp)
+end
+function fit_mode_quantile(::Type{ScaledLogNormal{T}}, mode::Real, qp::QuantilePoint) where T
+    if mode < 0 
+        return(-1 * fit_mode_quantile(LogNormal{T}, -mode, QuantilePoint(-qp.q,1-qp.p)))
+        #return(-1 * fit_mode_quantile(LogNormal{T}, -mode, qp))
+    end
+    1 * fit_mode_quantile(LogNormal{T}, mode, qp)
+end
+
+
