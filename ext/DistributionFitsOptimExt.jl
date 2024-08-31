@@ -11,7 +11,7 @@ function DistributionFits.optimize(f, ::OptimOptimizer, lower, upper)
 end
 
 function __init__()
-    @info "DistributionFits: setting OptimOptimizer"
+    #@info "DistributionFits: setting OptimOptimizer"
     #DistributionFits.set_optimizer(DistributionFitsOptimExt.OptimOptimizer())
     DistributionFits.set_optimizer(OptimOptimizer())
 end
