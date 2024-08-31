@@ -36,7 +36,7 @@ export
 #   optimize, set_optimizer  
 
 # LogNormal
-export AbstractΣstar, Σstar, σstar
+export AbstractΣstar, Σstar, σstar, ScaledLogNormal
 
 # LogitNormal  
 export fit_mode_flat, shifloNormal
