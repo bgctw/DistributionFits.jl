@@ -45,6 +45,33 @@ d = fit_mean_relerror(LogNormal, 2, 0.2)
 (true, true)
 ```
 
+## ScaledLogNormal: LogNormal(-x)
+To support the use case of a distribution of strictly negative values, the
+fitting of a mirrored LogNormal on `-x` is supported.
+
+There is a type-alias 
+`ScaledLogNormal = LocationScale{T, Continuous, LogNormal{T}} where T`,
+denoting a scaled and shifted LogNormal distribution.
+
+There are fitting function dispatched by this type that fit
+such a mirrored distribution.
+
+```jldoctest; output = false, setup = :(using DistributionFits)
+d = fit_mean_Σ(ScaledLogNormal, -1, log(1.1))
+(mean(d), σstar(d)) .≈ (-1.0, 1.1)
+# output
+(true, true)
+```
+
+```jldoctest; output = false, setup = :(using DistributionFits)
+d = fit(ScaledLogNormal, -1.0, @qp_ll(-1.32), Val(:mode))
+(mode(d), quantile(d, 0.025)) .≈ (-1.0, -1.32)
+# output
+(true, true)
+```
+Note the usage of lower quantile for the mirrored distribution, here.
+
+
 ## Detailed API
 
 ```@docs
