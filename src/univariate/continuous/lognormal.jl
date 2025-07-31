@@ -169,7 +169,7 @@ end
 
 
 #---- support LogNormal(-x) of negative values ------------
-const ScaledLogNormal{T} = LocationScale{T, Continuous, LogNormal{T}} where T
+const ScaledLogNormal{T} = LocationScale{T1, Continuous, LogNormal{T}} where {T1, T}
 
 σstar(d::ScaledLogNormal) = exp(params(d.ρ)[2])
 

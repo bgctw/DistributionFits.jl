@@ -7,7 +7,7 @@ struct OptimOptimizer <: AbstractDistributionFitOptimizer end
 
 function DistributionFits.optimize(f, ::OptimOptimizer, lower, upper)
     result = Optim.optimize(f, lower, upper)
-    (; minimizer = result.minimizer, converged = result.converged, result)
+    (; minimizer = result.minimizer, converged = Optim.converged(result), result)
 end
 
 function __init__()
