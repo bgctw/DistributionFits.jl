@@ -7,7 +7,7 @@ using Aqua
         Aqua.test_all(
             DistributionFits;
             #unbound_args = false, # does not recognize NamedTuple{K, NTuple{N,E}}
-            stale_deps = (ignore = [:Requires],),
+            #stale_deps = (ignore = [:Requires],),
             ambiguities = false, # ambiguities in StatsBase
             piracies = false
         )

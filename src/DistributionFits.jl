@@ -8,10 +8,6 @@ using StatsFuns: logit, logistic, normcdf
 using LinearAlgebra
 #using Infiltrator
 
-if !isdefined(Base, :get_extension)
-    using Requires
-end
-
 # for extension
 import Distributions: mean, var, mode
 #import StatsBase: fit
