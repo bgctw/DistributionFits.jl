@@ -46,7 +46,7 @@ jobs:
       # - uses: actions/checkout@v4
       #   with:
       #     ref: 'keepalive'      # The branch, tag or SHA to checkout. 
-      # - uses: bgctw/keepalive-workflow@master
+      # - uses: EarthyScience/keepalive-workflow@master
   # keepalive-job:
   #   name: Keepalive Workflow
   #   runs-on: ubuntu-latest

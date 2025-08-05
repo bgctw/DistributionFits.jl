@@ -4,7 +4,7 @@ CurrentModule = DistributionFits
 
 # DistributionFits
 
-Documentation for [DistributionFits](https://github.com/bgctw/DistributionFits.jl).
+Documentation for [DistributionFits](https://github.com/EarthyScience/DistributionFits.jl).
 
 ```@index
 ```

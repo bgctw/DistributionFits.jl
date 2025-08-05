@@ -4,7 +4,7 @@ CurrentModule = DistributionFits
 
 # DistributionFits
 
-Package [DistributionFits](https://github.com/bgctw/DistributionFits.jl)
+Package [DistributionFits](https://github.com/EarthyScience/DistributionFits.jl)
 allows fitting a distribution to a given
 set of aggregate statistics.
 
