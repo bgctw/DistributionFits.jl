@@ -14,12 +14,12 @@ DocMeta.setdocmeta!(DistributionFits,
 makedocs(;
     modules = [DistributionFits],
     authors = "Thomas Wutzler <twutz@bgc-jena.mpg.de> and contributors",
-    #repo="https://github.com/bgctw/DistributionFits.jl/blob/{commit}{path}#{line}",
-    repo = Remotes.GitHub("bgctw", "DistributionFits.jl"),
+    #repo="https://github.com/EarthyScience/DistributionFits.jl/blob/{commit}{path}#{line}",
+    repo = Remotes.GitHub("EarthyScience", "DistributionFits.jl"),
     sitename = "DistributionFits.jl",
     format = Documenter.HTML(;
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://bgctw.github.io/DistributionFits.jl",
+        canonical = "https://EarthyScience.github.io/DistributionFits.jl",
         assets = String[],),
     pages = [
         "Home" => "index.md",
@@ -37,5 +37,5 @@ makedocs(;
     ],)
 
 deploydocs(;
-    repo = "github.com/bgctw/DistributionFits.jl",
+    repo = "github.com/EarthyScience/DistributionFits.jl",
     devbranch = "main",)

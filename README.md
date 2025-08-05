@@ -1,9 +1,9 @@
 # DistributionFits
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://bgctw.github.io/DistributionFits.jl/stable)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://bgctw.github.io/DistributionFits.jl/dev)
-[![Build Status](https://github.com/bgctw/DistributionFits.jl/workflows/CI/badge.svg)](https://github.com/bgctw/DistributionFits.jl/actions)
-[![Coverage](https://codecov.io/gh/bgctw/DistributionFits.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/bgctw/DistributionFits.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://EarthyScience.github.io/DistributionFits.jl/stable)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://EarthyScience.github.io/DistributionFits.jl/dev)
+[![Build Status](https://github.com/EarthyScience/DistributionFits.jl/workflows/CI/badge.svg)](https://github.com/EarthyScience/DistributionFits.jl/actions)
+[![Coverage](https://codecov.io/gh/EarthyScience/DistributionFits.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/EarthyScience/DistributionFits.jl)
 
 
 Extends [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) 
@@ -19,7 +19,7 @@ to
 
 This can also be used to approximate one distribution via a different distribution by matching its moments.
 
-User needs to [explicitly using Optim.jl](https://bgctw.github.io/DistributionFits.jl/stable/set_optimize/) for DistributionFits.jl to work properly:
+User needs to [explicitly using Optim.jl](https://EarthyScience.github.io/DistributionFits.jl/stable/set_optimize/) for DistributionFits.jl to work properly:
 ```julia
 using DistributionFits, Optim
 ```
@@ -32,4 +32,4 @@ Currently, support for the following distributios are implemented:
 - Weibull (only fitting to two quantiles)
 - Gamma (only fitting to two quantiles)
 
-See [Documentation](https://bgctw.github.io/DistributionFits.jl/dev)
+See [Documentation](https://EarthyScience.github.io/DistributionFits.jl/dev)
